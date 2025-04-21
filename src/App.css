@@ -1,0 +1,269 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Add this to make the draggable navbar work properly */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ensure the draggable area has enough space */
+body {
+  min-height: 100vh;
+}
+
+/* Custom cursor styles */
+a,
+button,
+input,
+textarea,
+select,
+[role="button"] {
+  cursor: none !important;
+}
+
+/* Better cursor handling for video panel */
+.video-panel-open {
+  /* Important for the scrolling behavior */
+  overflow-y: auto !important;
+}
+
+.cursor-over-video {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Video panel elements should use default cursor */
+#videoSection *,
+.use-default-cursor,
+.video-panel-open #videoSection,
+.video-panel-open #videoSection * {
+  cursor: default !important;
+}
+
+/* Force video controls and buttons to have pointer cursor */
+#videoSection video,
+#videoSection button,
+.video-panel-open #videoSection video,
+.video-panel-open #videoSection button {
+  cursor: pointer !important;
+}
+
+/* Add a subtle trail effect to links and buttons */
+a:hover::after,
+button:hover::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 9998;
+  pointer-events: none;
+  animation: pulse 1.5s infinite;
+}
+
+/* Disable trail effect in video section */
+#videoSection a:hover::after,
+#videoSection button:hover::after,
+.video-panel-open #videoSection a:hover::after,
+.video-panel-open #videoSection button:hover::after {
+  display: none !important;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Custom cursor fix for video panel */
+.video-section {
+  pointer-events: auto !important;
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* When video panel is open */
+.video-panel-open .cursor-container {
+  pointer-events: none !important;
+}
+
+/* Fix for cursor boundaries when video panel is open */
+.video-panel-open body > *:not(#videoSection):not(.cursor-container) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Compact mode styles */
+.compact-mode {
+  transform: scale(1);
+  transform-origin: center top;
+  transition: transform 0.5s ease-in-out;
+  max-width: 90%;
+  margin: 0 10px;
+}
+
+.compact-mode main {
+  padding-right: calc(40% + 1rem);
+}
+
+.compact-mode header {
+  padding: 0.75rem 1.5rem;
+}
+
+.compact-mode section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.compact-mode #portfolio .grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .compact-mode {
+    transform: none;
+    max-width: 100%;
+  }
+  
+  .compact-mode main {
+    padding-right: 0;
+  }
+}
+
+/* Video Panel Styles */
+#videoSection {
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+  isolation: isolate; /* Create a stacking context */
+  z-index: 1000 !important;
+}
+
+#videoSection.dark-theme {
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.video-placeholder {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.dark-theme .video-placeholder {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive fixes for video panel */
+@media (max-width: 768px) {
+  #videoSection {
+    width: 100% !important;
+    height: 100vh !important;
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    z-index: 50;
+  }
+  
+  .compact-mode {
+    padding-right: 0;
+  }
+}
