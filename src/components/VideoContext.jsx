@@ -5,30 +5,34 @@ const VideoContext = createContext();
 
 export function VideoProvider({ children }) {
   const [showVideo, setShowVideo] = useState(false);
-  const [videoDetails, setVideoDetails] = useState({
-    url: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
-    title: "Demo Video"
-  });
+  const [videoUrl, setVideoUrl] = useState("https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4");
+  const [videoTitle, setVideoTitle] = useState("Demo Video");
 
   const toggleVideo = (customUrl, customTitle) => {
+    // Support for the legacy way of calling toggleVideo with parameters
     if (customUrl && customTitle) {
-      setVideoDetails({
-        url: customUrl,
-        title: customTitle
-      });
+      setVideoUrl(customUrl);
+      setVideoTitle(customTitle);
     }
     
     setShowVideo(!showVideo);
   };
 
   return (
-    <VideoContext.Provider value={{ showVideo, toggleVideo, videoDetails, setVideoDetails }}>
+    <VideoContext.Provider value={{ 
+      showVideo, 
+      toggleVideo, 
+      videoUrl, 
+      setVideoUrl,
+      videoTitle,
+      setVideoTitle
+    }}>
       {children}
       <VideoPanel 
         showVideo={showVideo} 
         toggleVideo={toggleVideo} 
-        url={videoDetails.url}
-        title={videoDetails.title}
+        url={videoUrl}
+        title={videoTitle}
       />
     </VideoContext.Provider>
   );

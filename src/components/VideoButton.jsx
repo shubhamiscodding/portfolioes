@@ -1,24 +1,31 @@
 import { Play } from "lucide-react";
+import { Button } from "./ui/Button";
 import { useVideo } from "./VideoContext";
 
 export default function VideoButton({ 
   videoUrl, 
   videoTitle, 
-  className = "", 
+  text = "Watch Demo", 
   iconSize = "w-5 h-5",
-  text = "Watch Demo Video" 
+  className = "" 
 }) {
-  const { toggleVideo } = useVideo();
+  const { toggleVideo, setVideoUrl, setVideoTitle } = useVideo();
+
+  const handleClick = () => {
+    setVideoUrl(videoUrl);
+    setVideoTitle(videoTitle);
+    toggleVideo();
+  };
 
   return (
-    <button 
-      onClick={() => toggleVideo(videoUrl, videoTitle)}
-      className={`flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 ${className}`}
+    <Button
+      onClick={handleClick}
+      className={`bg-transparent border border-gray-800 hover:bg-gray-100 dark:border-gray-400 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-300 rounded-md px-3 sm:px-5 py-2.5 flex items-center gap-2 transition-colors ${className}`}
     >
-      <div className="bg-gray-800 dark:bg-gray-700 hover:bg-blue-600 dark:hover:bg-blue-600 rounded-full p-2 transition-colors duration-300">
-        <Play className={iconSize + " text-white"} />
-      </div>
-      <span className="font-medium">{text}</span>
-    </button>
+      <span className="flex-shrink-0">
+        <Play className={`${iconSize} text-current`} />
+      </span>
+      <span className="text-sm whitespace-nowrap">{text}</span>
+    </Button>
   );
 } 

@@ -23,13 +23,31 @@ export default function Header() {
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 20, y: 20 })
   const [mounted, setMounted] = useState(false)
-  const [showFloatingNav, setShowFloatingNav] = useState(true)
+  const [showFloatingNav, setShowFloatingNav] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const nodeRef = useRef(null)
   const { theme, toggleTheme } = useTheme()
   const [hasScrolled, setHasScrolled] = useState(false)
   const [visibleSections, setVisibleSections] = useState({})
   const observers = useRef({})
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile on mount
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    // Check initially
+    checkIfMobile()
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile)
+    
+    return () => {
+      window.removeEventListener('resize', checkIfMobile)
+    }
+  }, [])
 
   // Set mounted to true on client side
   useEffect(() => {
@@ -199,37 +217,56 @@ export default function Header() {
       setHasScrolled(true)
     }
   }
-  
-  // Handle theme toggle
+
   const handleThemeToggle = () => {
-    // Call the context's toggle function only
     toggleTheme()
   }
-  
-  // If the page is still loading, don't show the navigation
-  if (isLoading) {
+
+  // Don't render anything during loading or if not mounted
+  if (isLoading || !mounted) {
     return null
   }
 
-  // Floating navigation bar
+  // Floating navigation component
   const floatingNav = (
-    <Draggable nodeRef={nodeRef} position={position} onStart={handleDragStart} onStop={handleDragStop} bounds="parent">
+    <Draggable
+      nodeRef={nodeRef}
+      handle=".drag-handle"
+      position={position}
+      onStart={handleDragStart}
+      onStop={handleDragStop}
+      bounds="body"
+    >
       <div
         ref={nodeRef}
-        className="fixed z-50 flex items-center gap-2 p-3 bg-gray-900 dark:bg-white rounded-xl shadow-lg cursor-move"
-        style={{ touchAction: "none" }}
+        className={cn(
+          "fixed z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-2 rounded-2xl shadow-lg transition-all duration-300",
+          isDragging ? "cursor-grabbing" : "cursor-grab",
+          "transform sm:scale-100 scale-90"
+        )}
+        style={{ 
+          touchAction: "none",
+          opacity: isMobile ? 0.85 : 1, // More transparent on mobile
+          boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)"
+        }}
       >
+        <div className="drag-handle p-2 flex flex-col justify-center items-center rounded-xl bg-gray-100/80 dark:bg-gray-800/80 mb-2 cursor-move">
+          <div className="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+        </div>
+        
         {navLinks.map((link) => (
-          <button
+          <button 
             key={link.name}
-            onClick={() => scrollToSection(link.href)}
             className={cn(
-              "p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-12 relative",
-              activeSection === link.href.substring(1) 
-                ? "bg-gray-200 dark:bg-gray-700" 
-                : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
+              "relative w-12 h-12 flex items-center justify-center rounded-xl mb-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800",
+              activeSection === link.href.substring(1) ? "bg-gray-100 dark:bg-gray-800" : "bg-transparent"
             )}
-            aria-label={link.name}
+            onClick={(e) => {
+              if (!isDragging) {
+                scrollToSection(link.href)
+              }
+            }}
+            title={link.name}
           >
             <span className="text-gray-900 dark:text-gray-100 inline-block">{link.icon}</span>
             <AnimatePresence>
@@ -284,15 +321,15 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-40">
       <div
         className={cn(
-          "transition-all duration-300 rounded-xl backdrop-blur-md",
+          "transition-all duration-300 backdrop-blur-md",
           scrolled ? "bg-white/90 dark:bg-gray-900/90 shadow-lg" : "bg-white/80 dark:bg-gray-900/80",
-          "py-3",
+          "py-2 sm:py-3",
         )}
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <a
             href="#home"
-            className="text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             onClick={(e) => {
               e.preventDefault()
               scrollToSection("#home")
@@ -350,7 +387,7 @@ export default function Header() {
               {mounted && (theme === "dark" ? <Sun size={20} className="inline-block" /> : <Moon size={20} className="inline-block" />)}
             </button>
 
-            {/* Float Toggle */}
+            {/* Float Toggle - Only visible on desktop */}
             <button
               onClick={toggleFloatingNav}
               className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hidden md:flex hover:scale-[1.3]"
@@ -363,6 +400,7 @@ export default function Header() {
             <button
               className="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-full transition-colors hover:scale-[1.3]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMenuOpen ? <X size={24} className="inline-block" /> : <Menu size={24} className="inline-block" />}
             </button>
@@ -373,8 +411,9 @@ export default function Header() {
         {isMenuOpen && (
           <motion.div
             className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col py-4">
@@ -383,7 +422,7 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "px-4 py-3 mx-2 my-1 rounded-md transition-all duration-200 flex items-center gap-2",
+                    "px-4 py-3 mx-2 my-1 rounded-md transition-all duration-200 flex items-center gap-3",
                     activeSection === link.href.substring(1)
                       ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
                       : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50",
@@ -411,18 +450,21 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <div className="px-4 py-3 mx-2 my-1">
-                <button
-                  onClick={() => {
-                    toggleFloatingNav()
-                    setIsMenuOpen(false)
-                  }}
-                  className="w-full px-3 py-2 mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors"
-                >
-                  <Move size={18} className="inline-block" />
-                  <span>Switch to fixed navbar</span>
-                </button>
-              </div>
+              {/* Hide floating nav toggle on mobile for simplicity */}
+              {!isMobile && (
+                <div className="px-4 py-3 mx-2 my-1">
+                  <button
+                    onClick={() => {
+                      toggleFloatingNav()
+                      setIsMenuOpen(false)
+                    }}
+                    className="w-full px-3 py-2 mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors"
+                  >
+                    <Move size={18} className="inline-block" />
+                    <span>Switch to floating navbar</span>
+                  </button>
+                </div>
+              )}
             </nav>
           </motion.div>
         )}

@@ -227,14 +227,75 @@ button:hover::after {
   gap: 1rem;
 }
 
+/* Global responsive styles */
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  h2 {
+    font-size: 1.75rem !important;
+  }
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+/* Medium devices (tablets) */
 @media (max-width: 768px) {
   .compact-mode {
     width: 100%;
     padding-right: 0;
+    transform: scale(1);
   }
   
   .compact-mode main {
     padding-right: 0;
+  }
+  
+  /* Fix spacing for all sections on mobile */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Ensure flex columns on mobile instead of row */
+  .flex-row {
+    flex-direction: column !important;
+  }
+  
+  /* Adjust grid layouts for better mobile view */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Center text on mobile */
+  .md\:text-left {
+    text-align: center !important;
+  }
+  
+  /* Center items on mobile */
+  .md\:items-start {
+    align-items: center !important;
+  }
+  
+  /* Adjust image containers */
+  .rounded-full.overflow-hidden {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto;
+  }
+}
+
+/* Large devices (desktops) */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100% !important;
   }
 }
 
@@ -280,5 +341,71 @@ button:hover::after {
   
   .compact-mode main {
     padding-right: 0;
+  }
+  
+  /* Adjust video panel content */
+  #videoSection .container {
+    padding: 1rem !important;
+  }
+  
+  /* Improve video controls on mobile */
+  video::-webkit-media-controls {
+    display: flex !important;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Hide non-essential elements when video is playing on mobile */
+  .video-panel-open .hide-on-mobile-video {
+    display: none !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .cursor-container {
+    display: none !important;
+  }
+  
+  a, button, input, textarea, select, [role="button"] {
+    cursor: auto !important;
+  }
+  
+  /* Restore normal cursor behavior on touch devices */
+  #videoSection *, .video-panel-open #videoSection * {
+    cursor: auto !important;
+  }
+  
+  /* Remove hover effects that don't work well on touch */
+  a:hover::after, button:hover::after {
+    display: none !important;
+  }
+  
+  /* Increase touch targets for better accessibility */
+  nav a, button:not(.inline-button) {
+    padding: 0.75rem !important;
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Print styles for resume section */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  #resume, #resume * {
+    visibility: visible;
+  }
+  
+  #resume {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  
+  .no-print {
+    display: none !important;
   }
 }

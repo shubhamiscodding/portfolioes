@@ -104,20 +104,20 @@ export default function Portfolio() {
     activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory)
 
   return (
-    <section id="portfolio" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+    <section id="portfolio" className="py-12 md:py-16 lg:py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Portfolio</h2>
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Portfolio</h2>
           <p className="text-gray-600 dark:text-gray-400">Most recent work</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-6 py-2 rounded-full transition-colors",
+                "px-4 md:px-6 py-2 rounded-full text-sm md:text-base transition-colors",
                 activeCategory === category
                   ? "bg-gray-800 text-white dark:bg-gray-700 dark:text-white"
                   : "bg-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
@@ -128,14 +128,14 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredProjects.map((project) => (
             <div key={project.id} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className="relative overflow-hidden group">
+              <div className="relative overflow-hidden group h-48 sm:h-56 md:h-64">
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  className="w-full h-64 object-fit transform transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="space-x-4">
@@ -160,8 +160,8 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{project.title}</h3>
+              <div className="p-4 sm:p-6">
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{project.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies && project.technologies.slice(0, 3).map((tech, index) => (
@@ -176,7 +176,7 @@ export default function Portfolio() {
                     videoTitle={`${project.title} Demo`}
                     text="Watch Demo"
                     iconSize="w-4 h-4"
-                    className="text-sm"
+                    className="text-sm w-full sm:w-auto"
                   />
                 )}
               </div>
