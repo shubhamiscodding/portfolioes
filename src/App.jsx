@@ -34,7 +34,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="light">
+    <ThemeProvider defaultTheme="system" enableSystem={true}>
       <VideoProvider>
         <Router>
           <div className={`min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 ${isCompact ? 'compact-mode' : ''}`}>
