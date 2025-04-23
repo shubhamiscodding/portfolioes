@@ -77,7 +77,7 @@ export default function Home() {
                 videoUrl="https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4"
                 videoTitle="FinCtrl Demo Video"
                 text="Demo video of latest project"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto border-0 hover:text-blue-200"
               />
             </div>
           </div>

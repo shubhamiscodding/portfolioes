@@ -20,7 +20,7 @@ export default function VideoButton({
   return (
     <Button
       onClick={handleClick}
-      className={`bg-transparent border border-gray-800 hover:bg-gray-100 dark:border-gray-400 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-300 rounded-md px-3 sm:px-5 py-2.5 flex items-center gap-2 transition-colors ${className}`}
+      className={`bg-transparent border border-gray-800 dark:border-gray-400 text-gray-800 dark:text-gray-300 rounded-md px-3 sm:px-5 py-2.5 flex items-center gap-2 transition-colors ${className}`}
     >
       <span className="flex-shrink-0">
         <Play className={`${iconSize} text-current`} />

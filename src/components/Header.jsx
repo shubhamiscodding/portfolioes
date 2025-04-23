@@ -23,11 +23,12 @@ export default function Header() {
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 20, y: 20 })
   const [mounted, setMounted] = useState(false)
-  const [showFloatingNav, setShowFloatingNav] = useState(true)
+  const [showFloatingNav, setShowFloatingNav] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [touchMoved, setTouchMoved] = useState(false)
   const [dragThreshold] = useState(5) // pixels of movement to be considered a drag
   const [touchStartPos, setTouchStartPos] = useState({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
   const nodeRef = useRef(null)
   const { theme, toggleTheme } = useTheme()
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -38,6 +39,30 @@ export default function Header() {
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Check if device is mobile and set appropriate default header type
+  useEffect(() => {
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isMobileWidth = window.innerWidth <= 768;
+      const isMobileDevice = isTouchDevice || isMobileWidth;
+      
+      setIsMobile(isMobileDevice);
+      
+      // Set the default header based on device type:
+      // - Mobile: static header (showFloatingNav = false)
+      // - Desktop: floating header (showFloatingNav = true)
+      setShowFloatingNav(!isMobileDevice);
+    };
+
+    // Check on mount and when window resizes
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Simulate loading time similar to LoadingScreen component
   useEffect(() => {
@@ -233,11 +258,6 @@ export default function Header() {
     toggleTheme()
   }
   
-  // If the page is still loading, don't show the navigation
-  if (isLoading) {
-    return null
-  }
-
   // Floating navigation bar
   const floatingNav = (
     <Draggable 
@@ -353,12 +373,8 @@ export default function Header() {
     </Draggable>
   )
 
-  // Only show the static header if floating nav is not active
-  if (showFloatingNav) {
-    return floatingNav
-  }
-
-  return (
+  // Modified static header with mobile-specific toggle button text
+  const staticHeader = (
     <header className="fixed top-0 left-0 w-full z-40">
       <div
         className={cn(
@@ -428,7 +444,7 @@ export default function Header() {
               {mounted && (theme === "dark" ? <Sun size={18} className="sm:size-5 inline-block" /> : <Moon size={18} className="sm:size-5 inline-block" />)}
             </button>
 
-            {/* Float Toggle */}
+            {/* Float Toggle - Only visible on desktop */}
             <button
               onClick={toggleFloatingNav}
               className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hidden md:flex hover:scale-[1.3]"
@@ -489,22 +505,33 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <div className="px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1">
-                <button
-                  onClick={() => {
-                    toggleFloatingNav()
-                    setIsMenuOpen(false)
-                  }}
-                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
-                >
-                  <Move size={16} className="sm:size-[18px] inline-block" />
-                  <span>Switch to fixed navbar</span>
-                </button>
-              </div>
+              {/* Only show toggle option to desktop users on mobile view */}
+              {!isMobile && (
+                <div className="px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1">
+                  <button
+                    onClick={() => {
+                      toggleFloatingNav()
+                      setIsMenuOpen(false)
+                    }}
+                    className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
+                  >
+                    <Move size={16} className="sm:size-[18px] inline-block" />
+                    <span>Switch to floating navbar</span>
+                  </button>
+                </div>
+              )}
             </nav>
           </motion.div>
         )}
       </div>
     </header>
   )
+
+  // If the page is still loading, don't show the navigation
+  if (isLoading) {
+    return null
+  }
+
+  // Return the appropriate navigation based on the showFloatingNav state
+  return showFloatingNav ? floatingNav : staticHeader
 }

@@ -3,9 +3,11 @@
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { useVideo } from "./VideoContext"
+import { useTheme } from "./ThemeProvider"
 
 export default function CustomCursor() {
   const { showVideo } = useVideo()
+  const { theme } = useTheme()
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [clicked, setClicked] = useState(false)
   const [linkHovered, setLinkHovered] = useState(false)
@@ -13,6 +15,12 @@ export default function CustomCursor() {
   const [isOverVideo, setIsOverVideo] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const cursorRef = useRef(null)
+  
+  // Determine cursor color based on theme
+  const isDarkTheme = theme === "dark"
+  const cursorColor = isDarkTheme ? "white" : "black"
+  const cursorBorderColor = isDarkTheme ? "border-white" : "border-black"
+  const cursorBgColor = isDarkTheme ? "bg-white" : "bg-black"
 
   // Check if device is mobile
   useEffect(() => {
@@ -159,7 +167,7 @@ export default function CustomCursor() {
           mass: 0.6,
         }}
       >
-        <div className="h-8 w-8 rounded-full border-2 border-white" />
+        <div className={`h-8 w-8 rounded-full border-2 ${cursorBorderColor}`} />
       </motion.div>
 
       <motion.div
@@ -179,7 +187,7 @@ export default function CustomCursor() {
           mass: 0.2,
         }}
       >
-        <div className="h-2 w-2 rounded-full bg-white" />
+        <div className={`h-2 w-2 rounded-full ${cursorBgColor}`} />
       </motion.div>
 
       <style dangerouslySetInnerHTML={{ __html: `
