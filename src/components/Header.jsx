@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Menu, X, Moon, Sun, Move, Home, Briefcase, Code2, Phone, Lightbulb, Layers } from "lucide-react"
 import { cn } from "../utils"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import Draggable from "react-draggable"
 import { useTheme } from "./ThemeProvider"
 
@@ -19,7 +19,7 @@ const navLinks = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
+  const [activeSection, setActiveSection] = useState("")
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 20, y: 20 })
   const [mounted, setMounted] = useState(false)
@@ -27,6 +27,9 @@ export default function Header() {
   const [isLoading, setIsLoading] = useState(true)
   const nodeRef = useRef(null)
   const { theme, toggleTheme } = useTheme()
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const [visibleSections, setVisibleSections] = useState({})
+  const observers = useRef({})
 
   // Set mounted to true on client side
   useEffect(() => {
@@ -42,29 +45,114 @@ export default function Header() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Set initial active section from URL hash
+  useEffect(() => {
+    const hash = window.location.hash.substring(1)
+    if (hash) {
+      setActiveSection(hash)
+    } else {
+      setActiveSection("home") // Default to home if no hash
+    }
+  }, [])
+
   useEffect(() => {
     const handleScroll = () => {
+      if (!hasScrolled && window.scrollY > 100) {
+        setHasScrolled(true)
+      }
+      
       setScrolled(window.scrollY > 50)
 
-      // Determine active section based on scroll position
-      const sections = navLinks.map((link) => link.href.substring(1))
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
+      // We now primarily rely on Intersection Observer for section detection
+      // This scroll handler serves as a fallback when scrolling quickly
+      if (!Object.values(visibleSections).some(isVisible => isVisible)) {
+        // Only run this if no section is detected as visible by observers
+        const sections = navLinks.map((link) => link.href.substring(1))
+        
+        // Find the section that is currently in view
+        const currentSection = sections.find((section) => {
+          const element = document.getElementById(section)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            return rect.top <= 150 && rect.bottom >= 100
+          }
+          return false
+        })
 
-      if (currentSection) {
-        setActiveSection(currentSection)
+        if (currentSection && currentSection !== activeSection) {
+          setActiveSection(currentSection)
+          
+          // Update URL hash without triggering scroll (only after user has scrolled manually)
+          if (hasScrolled) {
+            history.replaceState(null, null, `#${currentSection}`)
+          }
+        }
       }
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [activeSection, hasScrolled, visibleSections])
+
+  // Set up intersection observers for each section
+  useEffect(() => {
+    // Create observers for each section
+    const sections = navLinks.map(link => link.href.substring(1))
+    
+    // Clean up old observers
+    Object.values(observers.current).forEach(observer => observer.disconnect())
+    observers.current = {}
+    
+    sections.forEach(sectionId => {
+      const section = document.getElementById(sectionId)
+      if (!section) {
+        console.warn(`Section with id "${sectionId}" not found in the DOM`)
+        return
+      }
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            // Debug log to identify if we're detecting the portfolio section
+            if (sectionId === 'portfolio') {
+              console.log(`Portfolio section intersection: ${entry.isIntersecting}, ratio: ${entry.intersectionRatio}`)
+            }
+            
+            setVisibleSections(prev => ({
+              ...prev,
+              [sectionId]: entry.isIntersecting
+            }))
+            
+            // If section is visible and significantly in view, update active section
+            // Lowering the threshold specifically for portfolio section which might have different dimensions
+            const threshold = sectionId === 'portfolio' ? 0.2 : 0.5
+            if (entry.isIntersecting && entry.intersectionRatio > threshold) {
+              setActiveSection(sectionId)
+              
+              // Only update URL if the user has scrolled manually
+              if (hasScrolled) {
+                history.replaceState(null, null, `#${sectionId}`)
+              }
+            }
+          })
+        },
+        { 
+          // Adjust thresholds to be more sensitive for detection, especially for portfolio
+          threshold: [0.1, 0.2, 0.5], 
+          // Adjust rootMargin to account for fixed header height and improve detection
+          rootMargin: '-80px 0px -10% 0px' 
+        }
+      )
+      
+      observer.observe(section)
+      observers.current[sectionId] = observer
+    })
+    
+    return () => {
+      // Clean up observers
+      Object.values(observers.current).forEach(observer => observer.disconnect())
+    }
+  }, [hasScrolled])
 
   const toggleFloatingNav = () => {
     setShowFloatingNav(!showFloatingNav)
@@ -93,9 +181,22 @@ export default function Header() {
   }
 
   const scrollToSection = (href) => {
-    const element = document.querySelector(href)
+    const sectionId = href.substring(1)
+    const element = document.getElementById(sectionId)
+    
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      setActiveSection(sectionId)
+      // Update the URL
+      history.pushState(null, null, href)
+      
+      // Smooth scroll to section
+      element.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start" 
+      })
+      
+      // After scrolling, assume user has manually scrolled
+      setHasScrolled(true)
     }
   }
   
@@ -123,7 +224,7 @@ export default function Header() {
             key={link.name}
             onClick={() => scrollToSection(link.href)}
             className={cn(
-              "p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-12",
+              "p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-12 relative",
               activeSection === link.href.substring(1) 
                 ? "bg-gray-200 dark:bg-gray-700" 
                 : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
@@ -131,6 +232,23 @@ export default function Header() {
             aria-label={link.name}
           >
             <span className="text-gray-900 dark:text-gray-100 inline-block">{link.icon}</span>
+            <AnimatePresence>
+              {activeSection === link.href.substring(1) && (
+                <motion.span
+                  layoutId="floating-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800 dark:bg-white mx-1"
+                  initial={{ opacity: 0, width: "0%" }}
+                  animate={{ opacity: 1, width: "calc(100% - 0.5rem)" }}
+                  exit={{ opacity: 0, width: "0%" }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 500, 
+                    damping: 30,
+                    duration: 0.3 
+                  }}
+                />
+              )}
+            </AnimatePresence>
           </button>
         ))}
         <div className="flex items-center gap-2 ml-2">
@@ -175,9 +293,12 @@ export default function Header() {
           <a
             href="#home"
             className="text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            onClick={handleLinkClick}
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection("#home")
+            }}
           >
-            Smith
+            Shubham Modi
           </a>
 
           {/* Desktop Navigation */}
@@ -192,18 +313,29 @@ export default function Header() {
                     ? "text-gray-900 dark:text-white font-medium"
                     : "hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50",
                 )}
-                onClick={handleLinkClick}
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection(link.href)
+                }}
               >
                 {link.name}
-                {activeSection === link.href.substring(1) && (
-                  <motion.span
-                    layoutId="navbar-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white mx-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
+                <AnimatePresence>
+                  {activeSection === link.href.substring(1) && (
+                    <motion.span
+                      layoutId="navbar-indicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white mx-2"
+                      initial={{ opacity: 0, width: "0%" }}
+                      animate={{ opacity: 1, width: "calc(100% - 1rem)" }}
+                      exit={{ opacity: 0, width: "0%" }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 500, 
+                        damping: 30,
+                        duration: 0.3 
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
               </a>
             ))}
           </nav>
@@ -256,12 +388,26 @@ export default function Header() {
                       ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
                       : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50",
                   )}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToSection(link.href)
                     setIsMenuOpen(false)
-                    handleLinkClick()
                   }}
                 >
-                  {link.icon && <span className="inline-block">{link.icon}</span>}
+                  {link.icon && (
+                    <span className="inline-block">
+                      {link.icon}
+                      {activeSection === link.href.substring(1) && (
+                        <motion.span
+                          className="absolute left-0 w-1 h-full bg-gray-900 dark:bg-white rounded-full"
+                          layoutId="mobile-indicator"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </span>
+                  )}
                   {link.name}
                 </a>
               ))}

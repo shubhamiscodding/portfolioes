@@ -196,12 +196,21 @@ button:hover::after {
   transform: scale(1);
   transform-origin: center top;
   transition: transform 0.5s ease-in-out;
-  max-width: 90%;
-  margin: 0 10px;
+  width: 65%;
+  margin: 0 auto 0 0;
 }
 
 .compact-mode main {
-  padding-right: calc(40% + 1rem);
+  width: 100%;
+  padding-right: 0;
+}
+
+.compact-mode header,
+.compact-mode main > section,
+.compact-mode footer {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .compact-mode header {
@@ -220,8 +229,8 @@ button:hover::after {
 
 @media (max-width: 768px) {
   .compact-mode {
-    transform: none;
-    max-width: 100%;
+    width: 100%;
+    padding-right: 0;
   }
   
   .compact-mode main {
@@ -265,6 +274,11 @@ button:hover::after {
   }
   
   .compact-mode {
+    width: 100%;
+    padding-right: 0;
+  }
+  
+  .compact-mode main {
     padding-right: 0;
   }
 }

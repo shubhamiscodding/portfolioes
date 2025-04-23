@@ -55,7 +55,10 @@ export default function VideoPanel({ showVideo, toggleVideo, url = "https://res.
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          style={{ pointerEvents: "auto" }}
+          style={{ 
+            pointerEvents: "auto",
+            width: "35%"
+          }}
         >
           <div className={`sticky top-0 p-4 flex justify-between items-center border-b ${darkMode ? 'border-gray-700' : 'border-gray-300'} z-10 bg-inherit`}>
             <h3 className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{title}</h3>
@@ -75,11 +78,6 @@ export default function VideoPanel({ showVideo, toggleVideo, url = "https://res.
                 <X className="w-4 h-4 text-white" />
               </button>
             </div>
-          </div>
-          <div className="absolute top-2 right-2 z-10">
-            <span className={`text-xs font-medium px-2 py-1 rounded ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'}`}>
-              {darkMode ? 'Dark Mode' : 'Light Mode'}
-            </span>
           </div>
           <div className="flex-1 p-4 flex items-center justify-center">
             <div className="w-full h-auto max-h-[80vh] rounded-lg overflow-hidden shadow-xl relative">
