@@ -141,7 +141,7 @@ export default function CustomCursor() {
         <div className="h-2 w-2 rounded-full bg-white" />
       </motion.div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         body {
           cursor: ${isOverVideo ? 'default' : 'none'};
         }
@@ -158,7 +158,7 @@ export default function CustomCursor() {
         #videoSection button {
           cursor: pointer !important;
         }
-      `}</style>
+      `}} />
     </div>
   )
 }

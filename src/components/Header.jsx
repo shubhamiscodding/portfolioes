@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from "react"
 import { Menu, X, Moon, Sun, Move, Home, Briefcase, Code2, Phone, Lightbulb, Layers } from "lucide-react"
 import { cn } from "../utils"
 import { motion } from "framer-motion"
-import { useTheme } from "./ThemeProvider"
 import Draggable from "react-draggable"
+import { useTheme } from "./ThemeProvider"
 
 const navLinks = [
   { name: "Home", href: "#home", icon: <Home className="w-5 h-5" /> },
@@ -22,11 +22,11 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("home")
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 20, y: 20 })
-  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [showFloatingNav, setShowFloatingNav] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const nodeRef = useRef(null)
+  const { theme, toggleTheme } = useTheme()
 
   // Set mounted to true on client side
   useEffect(() => {
@@ -98,13 +98,11 @@ export default function Header() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
-
-  // Determine current theme for icon display
-  const currentTheme = mounted ? theme : "light"
   
-  // Toggle theme function to ensure it properly updates
-  const toggleTheme = () => {
-    setTheme(currentTheme === "dark" ? "light" : "dark")
+  // Handle theme toggle
+  const handleThemeToggle = () => {
+    // Call the context's toggle function only
+    toggleTheme()
   }
   
   // If the page is still loading, don't show the navigation
@@ -137,12 +135,12 @@ export default function Header() {
         ))}
         <div className="flex items-center gap-2 ml-2">
           <button
-            onClick={toggleTheme}
+            onClick={handleThemeToggle}
             className="p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
             aria-label="Toggle theme"
           >
             {mounted &&
-              (currentTheme === "dark" ? (
+              (theme === "dark" ? (
                 <Sun size={20} className="text-gray-900 dark:text-gray-100 inline-block" />
               ) : (
                 <Moon size={20} className="text-gray-900 dark:text-gray-100 inline-block" />
@@ -213,11 +211,11 @@ export default function Header() {
           <div className="flex items-center gap-2">
             {/* Theme Toggle */}
             <button
-              onClick={toggleTheme}
+              onClick={handleThemeToggle}
               className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hover:scale-[1.3]"
               aria-label="Toggle theme"
             >
-              {mounted && (currentTheme === "dark" ? <Sun size={20} className="inline-block" /> : <Moon size={20} className="inline-block" />)}
+              {mounted && (theme === "dark" ? <Sun size={20} className="inline-block" /> : <Moon size={20} className="inline-block" />)}
             </button>
 
             {/* Float Toggle */}

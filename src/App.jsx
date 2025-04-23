@@ -14,7 +14,17 @@ import { ThemeProvider } from "./components/ThemeProvider"
 import { VideoProvider } from "./components/VideoContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
+import "./index.css"
 import "./App.css"
+
+// Script to enforce theme at page load
+if (typeof window !== 'undefined') {
+  const savedTheme = localStorage.getItem('theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  
+  document.documentElement.classList.remove('light', 'dark');
+  document.documentElement.classList.add(savedTheme);
+}
 
 function App() {
   const [isCompact, setIsCompact] = useState(false);
@@ -34,7 +44,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="system" enableSystem={true}>
+    <ThemeProvider>
       <VideoProvider>
         <Router>
           <div className={`min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 ${isCompact ? 'compact-mode' : ''}`}>

@@ -4,6 +4,7 @@ import { Button } from "./ui/Button"
 import { Input } from "./ui/Input"
 import { Textarea } from "./ui/Textarea"
 import emailjs from '@emailjs/browser'
+import { useTheme } from "./ThemeProvider"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function Contact() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const formRef = useRef()
+  const { theme } = useTheme();
 
   const handleChange = (e) => {
     const { name, value } = e.target

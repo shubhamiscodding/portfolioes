@@ -4,9 +4,11 @@ import { Button } from "./ui/Button"
 import { motion } from "framer-motion"
 import { useVideo } from "./VideoContext"
 import VideoButton from "./VideoButton"
+import { useTheme } from "./ThemeProvider"
 
 export default function Home() {
   const { showVideo, toggleVideo } = useVideo();
+  const { theme } = useTheme();
 
   return (
     <section id="home" className="pt-32 pb-16 md:pt-40 md:pb-24 min-h-screen flex flex-col justify-center relative overflow-hidden">

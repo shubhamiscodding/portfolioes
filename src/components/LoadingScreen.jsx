@@ -6,11 +6,12 @@ import { useTheme } from "./ThemeProvider"
 
 export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true)
-  const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const { theme } = useTheme()
 
   useEffect(() => {
     setMounted(true)
+    
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false)

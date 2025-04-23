@@ -2,53 +2,74 @@
 
 import { createContext, useContext, useEffect, useState } from "react"
 
+// Create theme context
 const ThemeContext = createContext({
   theme: "light",
-  setTheme: () => null,
+  toggleTheme: () => null,
 })
 
-export function ThemeProvider({ children, defaultTheme = "light", enableSystem = true }) {
-  const [theme, setTheme] = useState(defaultTheme)
-  const [mounted, setMounted] = useState(false)
-
-  // Initialize theme from localStorage on client-side only
-  useEffect(() => {
-    setMounted(true)
-    const savedTheme = localStorage.getItem("theme")
-    if (savedTheme) {
-      setTheme(savedTheme)
+export function ThemeProvider({ children }) {
+  // Initialize from localStorage or system preference
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      // Check for saved preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme;
+      }
+      
+      // Check for system preference
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
     }
-  }, [])
+    return 'light';
+  });
 
+  // Apply theme to document
   useEffect(() => {
-    if (!mounted) return
+    if (typeof window === 'undefined') return;
+    
+    // Save to localStorage
+    localStorage.setItem('theme', theme);
+    
+    // Get html element
+    const html = document.documentElement;
+    
+    // Remove both classes
+    html.classList.remove('light', 'dark');
+    
+    // Add the current theme class
+    html.classList.add(theme);
+  }, [theme]);
 
-    const root = window.document.documentElement
+  // Create theme toggle function
+  const toggleTheme = () => {
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === "dark" ? "light" : "dark";
+      return newTheme;
+    });
+  };
 
-    // Remove previous theme class
-    root.classList.remove("light", "dark")
-
-    // Add new theme class
-    root.classList.add(theme)
-
-    // Save theme to localStorage
-    localStorage.setItem("theme", theme)
-  }, [theme, mounted])
-
-  const value = {
+  // Context value
+  const contextValue = {
     theme,
-    setTheme: (newTheme) => {
-      setTheme(newTheme)
-    },
-  }
+    toggleTheme
+  };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  // Render provider
+  return (
+    <ThemeContext.Provider value={contextValue}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
+// Hook to use theme values
 export const useTheme = () => {
-  const context = useContext(ThemeContext)
+  const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider")
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
-  return context
-}
+  return context;
+} 

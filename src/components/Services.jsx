@@ -1,6 +1,9 @@
 import { ArrowRight, LayoutGrid, Code, Palette } from "lucide-react"
+import { useTheme } from "./ThemeProvider"
 
 export default function Services() {
+  const { theme } = useTheme();
+  
   return (
     <section id="services" className="py-16 md:py-24 dark:bg-gray-900">
       <div className="container mx-auto px-4 md:px-6">
