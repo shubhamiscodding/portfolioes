@@ -75,8 +75,20 @@ const SkillBox = ({ title, skills }) => {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 ">
-      <div className="container mx-auto px-4 md:px-6">
+    <section 
+      id="skills" 
+      className="py-16 md:py-24 relative"
+      style={{
+        backgroundImage: `url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Add an overlay div for better readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95"></div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Skills</h2>
           <p className="text-gray-600 dark:text-gray-400">What I Bring to the Table</p>

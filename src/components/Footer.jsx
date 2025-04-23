@@ -2,8 +2,19 @@ import { Github, Linkedin, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="py-12 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4 md:px-6 text-center">
+    <footer 
+      className="py-12 relative"
+      style={{
+        backgroundImage: `url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Add overlay for better readability */}
+      <div className="absolute inset-0 bg-white/95 dark:bg-gray-900/95"></div>
+      
+      <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
         <a href="#home" className="text-2xl font-bold text-gray-900 dark:text-white mb-8 inline-block">
           Shubham Modi
         </a>

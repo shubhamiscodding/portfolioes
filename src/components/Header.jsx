@@ -100,7 +100,12 @@ export default function Header() {
   }
 
   // Determine current theme for icon display
-  const currentTheme = mounted && theme ? theme : "light"
+  const currentTheme = mounted ? theme : "light"
+  
+  // Toggle theme function to ensure it properly updates
+  const toggleTheme = () => {
+    setTheme(currentTheme === "dark" ? "light" : "dark")
+  }
   
   // If the page is still loading, don't show the navigation
   if (isLoading) {
@@ -112,7 +117,7 @@ export default function Header() {
     <Draggable nodeRef={nodeRef} position={position} onStart={handleDragStart} onStop={handleDragStop} bounds="parent">
       <div
         ref={nodeRef}
-        className="fixed z-50 flex items-center gap-2 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-lg cursor-move"
+        className="fixed z-50 flex items-center gap-2 p-3 bg-gray-900 dark:bg-white rounded-xl shadow-lg cursor-move"
         style={{ touchAction: "none" }}
       >
         {navLinks.map((link) => (
@@ -120,7 +125,7 @@ export default function Header() {
             key={link.name}
             onClick={() => scrollToSection(link.href)}
             className={cn(
-              "p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3]",
+              "p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-12",
               activeSection === link.href.substring(1) 
                 ? "bg-gray-200 dark:bg-gray-700" 
                 : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
@@ -132,7 +137,7 @@ export default function Header() {
         ))}
         <div className="flex items-center gap-2 ml-2">
           <button
-            onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+            onClick={toggleTheme}
             className="p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
             aria-label="Toggle theme"
           >
@@ -208,7 +213,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             {/* Theme Toggle */}
             <button
-              onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+              onClick={toggleTheme}
               className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hover:scale-[1.3]"
               aria-label="Toggle theme"
             >

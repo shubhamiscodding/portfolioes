@@ -11,23 +11,28 @@ export function ThemeProvider({ children, defaultTheme = "light", enableSystem =
   const [theme, setTheme] = useState(defaultTheme)
   const [mounted, setMounted] = useState(false)
 
+  // Initialize theme from localStorage on client-side only
   useEffect(() => {
     setMounted(true)
-    const storedTheme = localStorage.getItem("theme")
-    if (storedTheme) {
-      setTheme(storedTheme)
-    } else if (enableSystem) {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-      setTheme(systemTheme)
+    const savedTheme = localStorage.getItem("theme")
+    if (savedTheme) {
+      setTheme(savedTheme)
     }
-  }, [enableSystem])
+  }, [])
 
   useEffect(() => {
-    if (mounted) {
-      document.documentElement.classList.remove("light", "dark")
-      document.documentElement.classList.add(theme)
-      localStorage.setItem("theme", theme)
-    }
+    if (!mounted) return
+
+    const root = window.document.documentElement
+
+    // Remove previous theme class
+    root.classList.remove("light", "dark")
+
+    // Add new theme class
+    root.classList.add(theme)
+
+    // Save theme to localStorage
+    localStorage.setItem("theme", theme)
   }, [theme, mounted])
 
   const value = {
@@ -40,4 +45,10 @@ export function ThemeProvider({ children, defaultTheme = "light", enableSystem =
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => {
+  const context = useContext(ThemeContext)
+  if (context === undefined) {
+    throw new Error("useTheme must be used within a ThemeProvider")
+  }
+  return context
+}
