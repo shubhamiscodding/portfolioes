@@ -8,12 +8,12 @@ import Draggable from "react-draggable"
 import { useTheme } from "./ThemeProvider"
 
 const navLinks = [
-  { name: "Home", href: "#home", icon: <Home className="w-5 h-5" /> },
-  { name: "About", href: "#about", icon: <Briefcase className="w-5 h-5" /> },
-  { name: "Skills", href: "#skills", icon: <Lightbulb className="w-5 h-5" /> },
-  { name: "Services", href: "#services", icon: <Layers className="w-5 h-5" /> },
-  { name: "Portfolio", href: "#portfolio", icon: <Code2 className="w-5 h-5" /> },
-  { name: "Contact", href: "#contact", icon: <Phone className="w-5 h-5" /> },
+  { name: "Home", href: "#home", icon: <Home className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
+  { name: "About", href: "#about", icon: <Briefcase className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
+  { name: "Skills", href: "#skills", icon: <Lightbulb className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
+  { name: "Services", href: "#services", icon: <Layers className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
+  { name: "Portfolio", href: "#portfolio", icon: <Code2 className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
+  { name: "Contact", href: "#contact", icon: <Phone className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5" /> },
 ]
 
 export default function Header() {
@@ -23,31 +23,16 @@ export default function Header() {
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 20, y: 20 })
   const [mounted, setMounted] = useState(false)
-  const [showFloatingNav, setShowFloatingNav] = useState(false)
+  const [showFloatingNav, setShowFloatingNav] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const [touchMoved, setTouchMoved] = useState(false)
+  const [dragThreshold] = useState(5) // pixels of movement to be considered a drag
+  const [touchStartPos, setTouchStartPos] = useState({ x: 0, y: 0 })
   const nodeRef = useRef(null)
   const { theme, toggleTheme } = useTheme()
   const [hasScrolled, setHasScrolled] = useState(false)
   const [visibleSections, setVisibleSections] = useState({})
   const observers = useRef({})
-  const [isMobile, setIsMobile] = useState(false)
-
-  // Check if mobile on mount
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    // Check initially
-    checkIfMobile()
-    
-    // Add event listener for window resize
-    window.addEventListener('resize', checkIfMobile)
-    
-    return () => {
-      window.removeEventListener('resize', checkIfMobile)
-    }
-  }, [])
 
   // Set mounted to true on client side
   useEffect(() => {
@@ -181,22 +166,46 @@ export default function Header() {
   }
 
   const handleDragStart = () => {
+    // Set isDragging immediately, no delay needed
     setIsDragging(true)
   }
 
   const handleDragStop = (e, data) => {
     setPosition({ x: data.x, y: data.y })
-    setTimeout(() => {
-      setIsDragging(false)
-    }, 100)
+    
+    // Reset drag state immediately
+    setIsDragging(false)
   }
 
-  // Handle link clicks without triggering drag events
-  const handleLinkClick = (e) => {
-    if (isDragging) {
-      e.preventDefault()
+  // Touch event handlers with improved precision
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    setTouchStartPos({ x: touch.clientX, y: touch.clientY });
+    setTouchMoved(false);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!touchMoved) {
+      const touch = e.touches[0];
+      const dx = Math.abs(touch.clientX - touchStartPos.x);
+      const dy = Math.abs(touch.clientY - touchStartPos.y);
+      
+      // Only set touchMoved to true if movement exceeds threshold
+      if (dx > dragThreshold || dy > dragThreshold) {
+        setTouchMoved(true);
+      }
     }
-  }
+  };
+
+  // Direct handler for buttons without wrapping function
+  const navButtonClick = (action) => (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    
+    // Only perform action if not dragging
+    if (!isDragging && !touchMoved) {
+      action();
+    }
+  };
 
   const scrollToSection = (href) => {
     const sectionId = href.substring(1)
@@ -217,63 +226,67 @@ export default function Header() {
       setHasScrolled(true)
     }
   }
-
+  
+  // Enhanced theme toggle handler for mobile
   const handleThemeToggle = () => {
+    // Call the context's toggle function only
     toggleTheme()
   }
-
-  // Don't render anything during loading or if not mounted
-  if (isLoading || !mounted) {
+  
+  // If the page is still loading, don't show the navigation
+  if (isLoading) {
     return null
   }
 
-  // Floating navigation component
+  // Floating navigation bar
   const floatingNav = (
-    <Draggable
-      nodeRef={nodeRef}
-      handle=".drag-handle"
-      position={position}
-      onStart={handleDragStart}
-      onStop={handleDragStop}
-      bounds="body"
+    <Draggable 
+      nodeRef={nodeRef} 
+      position={position} 
+      onStart={handleDragStart} 
+      onStop={handleDragStop} 
+      bounds="parent"
+      cancel=".nav-btn" // Cancel dragging on elements with this class
     >
       <div
         ref={nodeRef}
-        className={cn(
-          "fixed z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-2 rounded-2xl shadow-lg transition-all duration-300",
-          isDragging ? "cursor-grabbing" : "cursor-grab",
-          "transform sm:scale-100 scale-90"
-        )}
-        style={{ 
-          touchAction: "none",
-          opacity: isMobile ? 0.85 : 1, // More transparent on mobile
-          boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)"
-        }}
+        className="fixed z-50 flex items-center gap-1 sm:gap-2 p-2 sm:p-3 bg-gray-900 dark:bg-white rounded-xl shadow-lg cursor-move"
+        style={{ touchAction: "none" }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
       >
-        <div className="drag-handle p-2 flex flex-col justify-center items-center rounded-xl bg-gray-100/80 dark:bg-gray-800/80 mb-2 cursor-move">
-          <div className="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
-        </div>
-        
         {navLinks.map((link) => (
-          <button 
+          <button
             key={link.name}
+            onClick={navButtonClick(() => scrollToSection(link.href))}
             className={cn(
-              "relative w-12 h-12 flex items-center justify-center rounded-xl mb-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-800",
-              activeSection === link.href.substring(1) ? "bg-gray-100 dark:bg-gray-800" : "bg-transparent"
+              "nav-btn p-2 sm:p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-10 sm:h-12 relative",
+              activeSection === link.href.substring(1) 
+                ? "bg-gray-200 dark:bg-gray-700" 
+                : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
             )}
-            onClick={(e) => {
-              if (!isDragging) {
-                scrollToSection(link.href)
+            aria-label={link.name}
+            onTouchStart={(e) => {
+              e.stopPropagation();
+              handleTouchStart(e);
+            }}
+            onTouchMove={(e) => {
+              e.stopPropagation();
+              handleTouchMove(e);
+            }}
+            onTouchEnd={(e) => {
+              e.stopPropagation();
+              if (!touchMoved) {
+                scrollToSection(link.href);
               }
             }}
-            title={link.name}
           >
-            <span className="text-gray-900 dark:text-gray-100 inline-block">{link.icon}</span>
+            <span className="text-gray-900 dark:text-gray-100 inline-block pointer-events-none">{link.icon}</span>
             <AnimatePresence>
               {activeSection === link.href.substring(1) && (
                 <motion.span
                   layoutId="floating-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800 dark:bg-white mx-1"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800 dark:bg-white mx-1 pointer-events-none"
                   initial={{ opacity: 0, width: "0%" }}
                   animate={{ opacity: 1, width: "calc(100% - 0.5rem)" }}
                   exit={{ opacity: 0, width: "0%" }}
@@ -288,24 +301,52 @@ export default function Header() {
             </AnimatePresence>
           </button>
         ))}
-        <div className="flex items-center gap-2 ml-2">
+        <div className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-2">
           <button
-            onClick={handleThemeToggle}
-            className="p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
+            onClick={navButtonClick(handleThemeToggle)}
+            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
             aria-label="Toggle theme"
+            onTouchStart={(e) => {
+              e.stopPropagation();
+              handleTouchStart(e);
+            }}
+            onTouchMove={(e) => {
+              e.stopPropagation();
+              handleTouchMove(e);
+            }}
+            onTouchEnd={(e) => {
+              e.stopPropagation();
+              if (!touchMoved) {
+                handleThemeToggle();
+              }
+            }}
           >
             {mounted &&
               (theme === "dark" ? (
-                <Sun size={20} className="text-gray-900 dark:text-gray-100 inline-block" />
+                <Sun size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
               ) : (
-                <Moon size={20} className="text-gray-900 dark:text-gray-100 inline-block" />
+                <Moon size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
               ))}
           </button>
           <button
-            onClick={toggleFloatingNav}
-            className="p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
+            onClick={navButtonClick(toggleFloatingNav)}
+            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
+            onTouchStart={(e) => {
+              e.stopPropagation();
+              handleTouchStart(e);
+            }}
+            onTouchMove={(e) => {
+              e.stopPropagation();
+              handleTouchMove(e);
+            }}
+            onTouchEnd={(e) => {
+              e.stopPropagation();
+              if (!touchMoved) {
+                toggleFloatingNav();
+              }
+            }}
           >
-            <X className="w-5 h-5 text-gray-900 dark:text-gray-100 inline-block" />
+            <X className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
           </button>
         </div>
       </div>
@@ -321,12 +362,12 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-40">
       <div
         className={cn(
-          "transition-all duration-300 backdrop-blur-md",
+          "transition-all duration-300 rounded-xl backdrop-blur-md",
           scrolled ? "bg-white/90 dark:bg-gray-900/90 shadow-lg" : "bg-white/80 dark:bg-gray-900/80",
           "py-2 sm:py-3",
         )}
       >
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 flex items-center justify-between">
           <a
             href="#home"
             className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -345,7 +386,7 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "relative px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 transition-all duration-300",
+                  "relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-gray-600 dark:text-gray-300 transition-all duration-300 text-sm sm:text-base",
                   activeSection === link.href.substring(1)
                     ? "text-gray-900 dark:text-white font-medium"
                     : "hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50",
@@ -377,32 +418,31 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             {/* Theme Toggle */}
             <button
               onClick={handleThemeToggle}
-              className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hover:scale-[1.3]"
+              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hover:scale-[1.3]"
               aria-label="Toggle theme"
             >
-              {mounted && (theme === "dark" ? <Sun size={20} className="inline-block" /> : <Moon size={20} className="inline-block" />)}
+              {mounted && (theme === "dark" ? <Sun size={18} className="sm:size-5 inline-block" /> : <Moon size={18} className="sm:size-5 inline-block" />)}
             </button>
 
-            {/* Float Toggle - Only visible on desktop */}
+            {/* Float Toggle */}
             <button
               onClick={toggleFloatingNav}
-              className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hidden md:flex hover:scale-[1.3]"
+              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hidden md:flex hover:scale-[1.3]"
               aria-label="Show floating navigation"
             >
-              <Move size={20} className="inline-block" />
+              <Move size={18} className="sm:size-5 inline-block" />
             </button>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-full transition-colors hover:scale-[1.3]"
+              className="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-1.5 sm:p-2 rounded-full transition-colors hover:scale-[1.3]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? <X size={24} className="inline-block" /> : <Menu size={24} className="inline-block" />}
+              {isMenuOpen ? <X size={20} className="sm:size-6 inline-block" /> : <Menu size={20} className="sm:size-6 inline-block" />}
             </button>
           </div>
         </div>
@@ -411,18 +451,17 @@ export default function Header() {
         {isMenuOpen && (
           <motion.div
             className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <nav className="flex flex-col py-4">
+            <nav className="flex flex-col py-3 sm:py-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "px-4 py-3 mx-2 my-1 rounded-md transition-all duration-200 flex items-center gap-3",
+                    "px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1 rounded-md transition-all duration-200 flex items-center gap-2 text-sm sm:text-base",
                     activeSection === link.href.substring(1)
                       ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
                       : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50",
@@ -450,21 +489,18 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              {/* Hide floating nav toggle on mobile for simplicity */}
-              {!isMobile && (
-                <div className="px-4 py-3 mx-2 my-1">
-                  <button
-                    onClick={() => {
-                      toggleFloatingNav()
-                      setIsMenuOpen(false)
-                    }}
-                    className="w-full px-3 py-2 mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors"
-                  >
-                    <Move size={18} className="inline-block" />
-                    <span>Switch to floating navbar</span>
-                  </button>
-                </div>
-              )}
+              <div className="px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1">
+                <button
+                  onClick={() => {
+                    toggleFloatingNav()
+                    setIsMenuOpen(false)
+                  }}
+                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
+                >
+                  <Move size={16} className="sm:size-[18px] inline-block" />
+                  <span>Switch to fixed navbar</span>
+                </button>
+              </div>
             </nav>
           </motion.div>
         )}

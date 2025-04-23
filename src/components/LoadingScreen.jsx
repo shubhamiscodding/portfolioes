@@ -33,12 +33,12 @@ export default function LoadingScreen() {
       <div className="relative w-full h-full">
         {/* Blob 1 */}
         <motion.div
-          className={`absolute w-16 h-16 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[5vmin] h-[5vmin] ${blobColor} rounded-full opacity-80`}
           style={{ top: "40%", left: "30%" }}
           animate={{
             scale: [1, 1.2, 1],
-            x: [0, 20, 0],
-            y: [0, -20, 0],
+            x: [0, "5vmin", 0],
+            y: [0, "-5vmin", 0],
           }}
           transition={{
             duration: 3,
@@ -48,12 +48,12 @@ export default function LoadingScreen() {
         />
 
         <motion.div
-          className={`absolute w-16 h-16 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[5vmin] h-[5vmin] ${blobColor} rounded-full opacity-80`}
           style={{ top: "50%", left: "40%" }}
           animate={{
             scale: [1, 1.2, 1],
-            x: [0, 20, 0],
-            y: [0, -20, 0],
+            x: [0, "5vmin", 0],
+            y: [0, "-5vmin", 0],
           }}
           transition={{
             duration: 3,
@@ -64,12 +64,12 @@ export default function LoadingScreen() {
 
         {/* Blob 2 */}
         <motion.div
-          className={`absolute w-24 h-24 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[7vmin] h-[7vmin] ${blobColor} rounded-full opacity-80`}
           style={{ top: "50%", left: "50%" }}
           animate={{
             scale: [1, 1.5, 1],
-            x: [0, -30, 0],
-            y: [0, 30, 0],
+            x: [0, "-8vmin", 0],
+            y: [0, "8vmin", 0],
           }}
           transition={{
             duration: 4,
@@ -80,12 +80,12 @@ export default function LoadingScreen() {
 
         {/* Blob 3 */}
         <motion.div
-          className={`absolute w-20 h-20 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[6vmin] h-[6vmin] ${blobColor} rounded-full opacity-80`}
           style={{ top: "40%", right: "30%" }}
           animate={{
             scale: [1, 1.3, 1],
-            x: [0, 40, 0],
-            y: [0, 10, 0],
+            x: [0, "9vmin", 0],
+            y: [0, "3vmin", 0],
           }}
           transition={{
             duration: 3.5,
@@ -96,12 +96,12 @@ export default function LoadingScreen() {
 
         {/* Blob 4 */}
         <motion.div
-          className={`absolute w-12 h-12 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[4vmin] h-[4vmin] ${blobColor} rounded-full opacity-80`}
           style={{ bottom: "35%", right: "25%" }}
           animate={{
             scale: [1, 1.2, 1],
-            x: [0, -15, 0],
-            y: [0, -25, 0],
+            x: [0, "-4vmin", 0],
+            y: [0, "-6vmin", 0],
           }}
           transition={{
             duration: 2.5,
@@ -112,12 +112,12 @@ export default function LoadingScreen() {
 
         {/* Blob 5 */}
         <motion.div
-          className={`absolute w-8 h-8 ${blobColor} rounded-full opacity-80`}
+          className={`absolute w-[3vmin] h-[3vmin] ${blobColor} rounded-full opacity-80`}
           style={{ bottom: "40%", left: "35%" }}
           animate={{
             scale: [1, 1.4, 1],
-            x: [0, 10, 0],
-            y: [0, 15, 0],
+            x: [0, "3vmin", 0],
+            y: [0, "4vmin", 0],
           }}
           transition={{
             duration: 2,
@@ -126,10 +126,10 @@ export default function LoadingScreen() {
           }}
         />
 
-        {/* Connecting lines using SVG paths */}
-        <svg className="absolute inset-0 w-full h-full">
+        {/* Responsive SVG container */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
           <motion.path
-            d="M 250,250 C 300,200 350,300 400,250"
+            d="M 250,500 C 350,400 450,600 550,500"
             className={strokeColor}
             strokeWidth="2"
             fill="none"
@@ -138,7 +138,7 @@ export default function LoadingScreen() {
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
           />
           <motion.path
-            d="M 400,250 C 450,200 500,300 550,250"
+            d="M 550,500 C 650,400 750,600 850,500"
             className={strokeColor}
             strokeWidth="2"
             fill="none"

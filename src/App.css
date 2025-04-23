@@ -96,99 +96,127 @@ body {
   min-height: 100vh;
 }
 
-/* Custom cursor styles */
-a,
-button,
-input,
-textarea,
-select,
-[role="button"] {
-  cursor: none !important;
-}
-
-/* Better cursor handling for video panel */
-.video-panel-open {
-  /* Important for the scrolling behavior */
-  overflow-y: auto !important;
-}
-
-.cursor-over-video {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-/* Video panel elements should use default cursor */
-#videoSection *,
-.use-default-cursor,
-.video-panel-open #videoSection,
-.video-panel-open #videoSection * {
-  cursor: default !important;
-}
-
-/* Force video controls and buttons to have pointer cursor */
-#videoSection video,
-#videoSection button,
-.video-panel-open #videoSection video,
-.video-panel-open #videoSection button {
-  cursor: pointer !important;
-}
-
-/* Add a subtle trail effect to links and buttons */
-a:hover::after,
-button:hover::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  z-index: 9998;
-  pointer-events: none;
-  animation: pulse 1.5s infinite;
-}
-
-/* Disable trail effect in video section */
-#videoSection a:hover::after,
-#videoSection button:hover::after,
-.video-panel-open #videoSection a:hover::after,
-.video-panel-open #videoSection button:hover::after {
-  display: none !important;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.8;
+/* Custom cursor styles - only apply on non-mobile devices */
+@media (min-width: 769px) {
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none !important;
   }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.4;
+
+  /* Better cursor handling for video panel */
+  .video-panel-open {
+    /* Important for the scrolling behavior */
+    overflow-y: auto !important;
   }
-  100% {
-    transform: scale(0.8);
-    opacity: 0;
+
+  .cursor-over-video {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  /* Video panel elements should use default cursor */
+  #videoSection *,
+  .use-default-cursor,
+  .video-panel-open #videoSection,
+  .video-panel-open #videoSection * {
+    cursor: default !important;
+  }
+
+  /* Force video controls and buttons to have pointer cursor */
+  #videoSection video,
+  #videoSection button,
+  .video-panel-open #videoSection video,
+  .video-panel-open #videoSection button {
+    cursor: pointer !important;
+  }
+
+  /* Add a subtle trail effect to links and buttons */
+  a:hover::after,
+  button:hover::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 9998;
+    pointer-events: none;
+    animation: pulse 1.5s infinite;
+  }
+
+  /* Disable trail effect in video section */
+  #videoSection a:hover::after,
+  #videoSection button:hover::after,
+  .video-panel-open #videoSection a:hover::after,
+  .video-panel-open #videoSection button:hover::after {
+    display: none !important;
+  }
+
+  /* Custom cursor fix for video panel */
+  .video-section {
+    pointer-events: auto !important;
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* When video panel is open */
+  .video-panel-open .cursor-container {
+    pointer-events: none !important;
+  }
+
+  /* Fix for cursor boundaries when video panel is open */
+  .video-panel-open body > *:not(#videoSection):not(.cursor-container) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Ensure cursor remains fixed when scrolling */
+  .cursor-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Fix for cursor visibility in all sections */
+  .cursor-outer,
+  .cursor-dot {
+    position: fixed !important;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  /* Ensure cursor is visible across all sections */
+  html, body {
+    cursor: none !important;
+  }
+
+  .cursor-over-video {
+    opacity: 0 !important; 
+    visibility: hidden !important;
   }
 }
 
-/* Custom cursor fix for video panel */
-.video-section {
-  pointer-events: auto !important;
-  position: fixed !important;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-/* When video panel is open */
-.video-panel-open .cursor-container {
-  pointer-events: none !important;
-}
-
-/* Fix for cursor boundaries when video panel is open */
-.video-panel-open body > *:not(#videoSection):not(.cursor-container) {
-  position: relative;
-  z-index: 1;
+/* Mobile-specific styles - restore default cursor behavior */
+@media (max-width: 768px) {
+  a, button, input, textarea, select, [role="button"], html, body {
+    cursor: auto !important;
+  }
+  
+  a, button, [role="button"] {
+    cursor: pointer !important;
+  }
 }
 
 /* Compact mode styles */
@@ -227,75 +255,14 @@ button:hover::after {
   gap: 1rem;
 }
 
-/* Global responsive styles */
-/* Small devices (phones) */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2.5rem !important;
-  }
-  h2 {
-    font-size: 1.75rem !important;
-  }
-  .container {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-  section {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
-  }
-}
-
-/* Medium devices (tablets) */
 @media (max-width: 768px) {
   .compact-mode {
     width: 100%;
     padding-right: 0;
-    transform: scale(1);
   }
   
   .compact-mode main {
     padding-right: 0;
-  }
-  
-  /* Fix spacing for all sections on mobile */
-  section {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-  
-  /* Ensure flex columns on mobile instead of row */
-  .flex-row {
-    flex-direction: column !important;
-  }
-  
-  /* Adjust grid layouts for better mobile view */
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Center text on mobile */
-  .md\:text-left {
-    text-align: center !important;
-  }
-  
-  /* Center items on mobile */
-  .md\:items-start {
-    align-items: center !important;
-  }
-  
-  /* Adjust image containers */
-  .rounded-full.overflow-hidden {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 0 auto;
-  }
-}
-
-/* Large devices (desktops) */
-@media (max-width: 1024px) {
-  .container {
-    max-width: 100% !important;
   }
 }
 
@@ -342,70 +309,19 @@ button:hover::after {
   .compact-mode main {
     padding-right: 0;
   }
-  
-  /* Adjust video panel content */
-  #videoSection .container {
-    padding: 1rem !important;
-  }
-  
-  /* Improve video controls on mobile */
-  video::-webkit-media-controls {
-    display: flex !important;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Hide non-essential elements when video is playing on mobile */
-  .video-panel-open .hide-on-mobile-video {
-    display: none !important;
-  }
 }
 
-/* Touch device optimizations */
-@media (hover: none) {
-  .cursor-container {
-    display: none !important;
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
   }
-  
-  a, button, input, textarea, select, [role="button"] {
-    cursor: auto !important;
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
   }
-  
-  /* Restore normal cursor behavior on touch devices */
-  #videoSection *, .video-panel-open #videoSection * {
-    cursor: auto !important;
-  }
-  
-  /* Remove hover effects that don't work well on touch */
-  a:hover::after, button:hover::after {
-    display: none !important;
-  }
-  
-  /* Increase touch targets for better accessibility */
-  nav a, button:not(.inline-button) {
-    padding: 0.75rem !important;
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Print styles for resume section */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  
-  #resume, #resume * {
-    visibility: visible;
-  }
-  
-  #resume {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-  
-  .no-print {
-    display: none !important;
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
   }
 }

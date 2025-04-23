@@ -11,9 +11,30 @@ export default function CustomCursor() {
   const [linkHovered, setLinkHovered] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [isOverVideo, setIsOverVideo] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const cursorRef = useRef(null)
 
+  // Check if device is mobile
   useEffect(() => {
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isMobileWidth = window.innerWidth <= 768;
+      setIsMobile(isTouchDevice || isMobileWidth);
+    };
+
+    // Check on mount and when window resizes
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Don't add event listeners on mobile devices
+    if (isMobile) return;
+    
     const addEventListeners = () => {
       document.addEventListener("mousemove", onMouseMove)
       document.addEventListener("mouseenter", onMouseEnter)
@@ -51,7 +72,8 @@ export default function CustomCursor() {
     }
 
     const onScroll = () => {
-      // Keep cursor in sync with scroll position
+      // Keep cursor in sync with current mouse position on scroll
+      // No need to update cursor position as it's now using fixed positioning
       if (position.x && position.y) {
         setIsOverVideo(checkVideoOverlap(position.x, position.y))
       }
@@ -105,12 +127,27 @@ export default function CustomCursor() {
     return () => {
       removeEventListeners()
     }
-  }, [showVideo, isOverVideo])
+  }, [showVideo, isOverVideo, position.x, position.y, isMobile])
+
+  // If on mobile, don't render the custom cursor
+  if (isMobile) {
+    return (
+      <style dangerouslySetInnerHTML={{ __html: `
+        body, html, a, button, input, textarea, select, [role="button"] {
+          cursor: auto !important;
+        }
+      `}} />
+    );
+  }
 
   return (
-    <div className="cursor-container" ref={cursorRef}>
+    <div className="cursor-container fixed inset-0 pointer-events-none overflow-visible z-[9999]" ref={cursorRef}>
       <motion.div
         className={`cursor-outer pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference ${isOverVideo ? 'cursor-over-video' : ''}`}
+        style={{
+          position: 'fixed',
+          willChange: 'transform'
+        }}
         animate={{
           x: position.x - 16,
           y: position.y - 16,
@@ -127,6 +164,10 @@ export default function CustomCursor() {
 
       <motion.div
         className={`cursor-dot pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference ${isOverVideo ? 'cursor-over-video' : ''}`}
+        style={{
+          position: 'fixed',
+          willChange: 'transform'
+        }}
         animate={{
           x: position.x - 4,
           y: position.y - 4,
@@ -143,7 +184,7 @@ export default function CustomCursor() {
 
       <style dangerouslySetInnerHTML={{ __html: `
         body {
-          cursor: ${isOverVideo ? 'default' : 'none'};
+          cursor: ${isOverVideo ? 'default' : 'none'} !important;
         }
         
         #videoSection {

@@ -1,6 +1,5 @@
 "use client"
-import { useState } from "react"
-import { ChevronDown, Code, Database, Wrench, FileCode, Palette, Globe, Server, Terminal, GitBranch, Cpu, Layout, Braces, FigmaIcon, Monitor } from "lucide-react"
+import { Code, Database, Wrench, FileCode, Palette, Globe, Server, Terminal, GitBranch, Cpu, Layout, Braces, FigmaIcon } from "lucide-react"
 import { motion } from "framer-motion"
 
 // Skill component
@@ -75,217 +74,39 @@ const SkillBox = ({ title, skills }) => {
 }
 
 export default function Skills() {
-  const [openCategory, setOpenCategory] = useState("frontend")
-
-  const toggleCategory = (category) => {
-    setOpenCategory(openCategory === category ? null : category)
-  }
-
   return (
-    <section id="skills" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Skills</h2>
-          <p className="text-gray-600 dark:text-gray-400">My technical level</p>
+    <section 
+      id="skills" 
+      className="py-16 md:py-24 relative"
+      style={{
+        backgroundImage: `url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Add an overlay div for better readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95"></div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Skills</h2>
+          <p className="text-gray-600 dark:text-gray-400">What I Bring to the Table</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Large box on the left */}
+          <div className="h-full">
+            <SkillBox title="Frontend" skills={frontendSkills} />
+          </div>
           
-          {/* Frontend Development */}
-          <div className="bg-white dark:bg-gray-800 p-5 md:p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-            <button
-              className="w-full flex items-center justify-between"
-              onClick={() => toggleCategory("frontend")}
-              aria-expanded={openCategory === "frontend"}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700">
-                  <Code className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">Frontend</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">More than 3 years</p>
-                </div>
-              </div>
-              <ChevronDown 
-                className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${openCategory === "frontend" ? "rotate-180" : ""}`} 
-              />
-            </button>
-
-            <div className={`mt-4 transition-all duration-300 overflow-hidden ${openCategory === "frontend" ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">HTML</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">90%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "90%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">CSS</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">85%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">JavaScript</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">80%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">React</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">85%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-              </div>
+          {/* Two stacked boxes on the right */}
+          <div className="flex flex-col gap-8">
+            <div>
+              <SkillBox title="Backend" skills={backendSkills} />
             </div>
-          </div>
-
-          {/* Backend Development */}
-          <div className="bg-white dark:bg-gray-800 p-5 md:p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-            <button
-              className="w-full flex items-center justify-between"
-              onClick={() => toggleCategory("backend")}
-              aria-expanded={openCategory === "backend"}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700">
-                  <Database className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">Backend</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">More than 2 years</p>
-                </div>
-              </div>
-              <ChevronDown 
-                className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${openCategory === "backend" ? "rotate-180" : ""}`} 
-              />
-            </button>
-
-            <div className={`mt-4 transition-all duration-300 overflow-hidden ${openCategory === "backend" ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Node.js</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">75%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "75%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Express</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">80%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">MongoDB</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">70%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "70%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Firebase</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">65%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "65%" }}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* UI/UX Design */}
-          <div className="bg-white dark:bg-gray-800 p-5 md:p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-            <button
-              className="w-full flex items-center justify-between"
-              onClick={() => toggleCategory("design")}
-              aria-expanded={openCategory === "design"}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700">
-                  <Monitor className="w-6 h-6 text-gray-900 dark:text-gray-100" />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">UI/UX Design</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">More than 1 year</p>
-                </div>
-              </div>
-              <ChevronDown 
-                className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${openCategory === "design" ? "rotate-180" : ""}`} 
-              />
-            </button>
-
-            <div className={`mt-4 transition-all duration-300 overflow-hidden ${openCategory === "design" ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Figma</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">85%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Adobe XD</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">60%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "60%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Prototyping</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">75%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "75%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">UI Design</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">80%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gray-800 dark:bg-gray-300 h-2 rounded-full" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <SkillBox title="Tools" skills={toolsSkills} />
             </div>
           </div>
         </div>
