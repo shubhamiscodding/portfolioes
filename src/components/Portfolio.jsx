@@ -17,7 +17,9 @@ const projects = [
     github: "https://github.com/shubhamiscodding/Fin_Ctrl",
     description: "A comprehensive financial management system that helps you track expenses, manage budgets, and analyze spending patterns effectively.",
     technologies: ["MongoDB", "Express", "React", "Node.js", "Tailwindcss", "JavaScript"],
-    demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4"
+    demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
+    size: "large", // large card
+    bgColor: "bg-zinc-900", // changed from orange to dark gray
   },
   {
     id: 2,
@@ -28,7 +30,8 @@ const projects = [
     github: "https://github.com/shubhamiscodding/progcap-clone",
     description: "A pixel-perfect clone of the Progcap platform, showcasing advanced React implementation and responsive design techniques.",
     technologies: ["React", "CSS", "JavaScript"],
-    // demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4"
+    size: "small",
+    bgColor: "bg-black",
   },
   {
     id: 3,
@@ -39,6 +42,8 @@ const projects = [
     github: "https://github.com/shubhamiscodding/apolloclone",
     description: "A faithful recreation of the Apollo healthcare platform interface, demonstrating attention to detail in UI/UX design.",
     technologies: ["HTML", "CSS"],
+    size: "small",
+    bgColor: "bg-zinc-800",
   },
   {
     id: 4,
@@ -49,6 +54,8 @@ const projects = [
     github: "https://github.com/shubhamiscodding/spotify-with-react/tree/main/you-vite-react",
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
     technologies: ["React", "API Integration"],
+    size: "medium",
+    bgColor: "bg-black",
   },
   {
     id: 5,
@@ -58,6 +65,8 @@ const projects = [
     link: "https://www.figma.com/proto/DNBtQzukvRqvlJOR15WNiD/FINAL-PROJECT?node-id=165-316&t=IJSgkeDiJ1yPqsuJ-1",
     description: "A sleek Figma prototype for a financial management tool with a simple and intuitive UI.",
     technologies: ["Figma", "Simple UI"],
+    size: "small",
+    bgColor: "bg-zinc-800",
   },
   {
     id: 6,
@@ -67,6 +76,8 @@ const projects = [
     link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?page-id=218%3A73&node-id=227-440&viewport=588%2C159%2C0.11&t=IH2rnykLPCUofh1R-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=227%3A440",
     description: "A Figma design for a fragrance brand landing page, featuring prototyping and a clean UI.",
     technologies: ["Figma", "Simple UI", "Prototyping"],
+    size: "medium",
+    bgColor: "bg-zinc-900",
   },
   {
     id: 7,
@@ -76,6 +87,8 @@ const projects = [
     link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?node-id=90-400&t=uwCXGdlQ3AxLspQy-1",
     description: "A Figma prototype for a cricket news platform with interactive elements.",
     technologies: ["Figma", "Prototyping"],
+    size: "large",
+    bgColor: "bg-zinc-800",
   },
   {
     id: 8,
@@ -85,6 +98,8 @@ const projects = [
     link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?node-id=43-87&t=uwCXGdlQ3AxLspQy-1",
     description: "A Figma recreation of Instagram's interface with prototyping features.",
     technologies: ["Figma", "Prototyping"],
+    size: "small",
+    bgColor: "bg-black",
   },
   {
     id: 9,
@@ -94,6 +109,8 @@ const projects = [
     link: "https://www.figma.com/proto/1rN6JDvA6MVeTwyABaoaHO/EXAM-BUT-UNIQE-IDEA?page-id=0%3A1&node-id=2-2&p=f&viewport=500%2C484%2C0.63&t=YXlQOTdePAZgLyKv-1&scaling=min-zoom&content-scaling=fixed",
     description: "A unique one-page social media design created in Figma with a creative layout.",
     technologies: ["Figma"],
+    size: "medium",
+    bgColor: "bg-black",
   },
 ]
 
@@ -103,24 +120,68 @@ export default function Portfolio() {
   const filteredProjects =
     activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory)
 
+  // Define size classes for different card sizes with asymmetric layout
+  const getSizeClasses = (size, index) => {
+    // Base size classes
+    let sizeClass = '';
+    
+    switch (size) {
+      case 'large':
+        sizeClass = 'lg:col-span-2 lg:row-span-2';
+        break;
+      case 'medium':
+        sizeClass = 'lg:col-span-1 lg:row-span-2';
+        break;
+      case 'small':
+      default:
+        sizeClass = 'lg:col-span-1 lg:row-span-1';
+    }
+    
+    // Add randomized asymmetric layout for certain indexes
+    if (index % 5 === 0) {
+      return `${sizeClass} md:col-span-2`; 
+    } else if (index % 7 === 0) {
+      return `${sizeClass} md:col-start-2`; 
+    } else {
+      return sizeClass;
+    }
+  }
+
+  const getImageHeight = (size) => {
+    switch (size) {
+      case 'large':
+        return 'h-[65%]';
+      case 'medium':
+        return 'h-64';
+      case 'small':
+      default:
+        return 'h-48';
+    }
+  }
+
+  // Get variable padding for cards to create asymmetry
+  const getCardPadding = (index) => {
+    const paddingOptions = ['p-4', 'p-5', 'p-6', 'p-7', 'p-8'];
+    return paddingOptions[index % paddingOptions.length];
+  }
+
   return (
-    <section id="portfolio" className="py-12 md:py-16 lg:py-24 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Portfolio</h2>
-          <p className="text-gray-600 dark:text-gray-400">Most recent work</p>
+    <section id="portfolio" className="py-16 bg-black text-white">
+      <div className="container mx-auto px-4">
+        <div className="text-left mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">PROJECTS</h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
+        <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-4 md:px-6 py-2 rounded-full text-sm md:text-base transition-colors",
+                "px-6 py-2 border border-white rounded-full text-sm transition-colors whitespace-nowrap",
                 activeCategory === category
-                  ? "bg-gray-800 text-white dark:bg-gray-700 dark:text-white"
-                  : "bg-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
+                  ? "bg-white text-black"
+                  : "bg-transparent text-white hover:bg-white hover:bg-opacity-10"
               )}
             >
               {category}
@@ -128,14 +189,23 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className="relative overflow-hidden group h-48 sm:h-56 md:h-64">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-3 md:gap-4 lg:gap-6">
+          {filteredProjects.map((project, index) => (
+            <div 
+              key={project.id} 
+              className={cn(
+                "rounded-lg overflow-hidden border border-gray-800 transition-all duration-300 hover:shadow-lg hover:shadow-gray-700/20 flex flex-col",
+                getSizeClasses(project.size, index),
+                project.bgColor,
+                index % 3 === 0 ? 'mt-2' : '',
+                index % 4 === 0 ? 'md:mt-4' : '',
+              )}
+            >
+              <div className={cn("relative overflow-hidden group", getImageHeight(project.size))}>
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-fill transform transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="space-x-4">
@@ -144,7 +214,7 @@ export default function Portfolio() {
                         href={project.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center p-2 bg-white rounded-full text-gray-800 hover:bg-gray-200 transition-colors duration-300"
+                        className="inline-flex items-center justify-center p-2 bg-white rounded-full text-black hover:bg-gray-200 transition-colors duration-300"
                       >
                         <Github className="w-5 h-5" />
                       </a>
@@ -153,31 +223,38 @@ export default function Portfolio() {
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center p-2 bg-white rounded-full text-gray-800 hover:bg-gray-200 transition-colors duration-300"
+                      className="inline-flex items-center justify-center p-2 bg-white rounded-full text-black hover:bg-gray-200 transition-colors duration-300"
                     >
                       <ArrowRight className="w-5 h-5" />
                     </a>
                   </div>
                 </div>
               </div>
-              <div className="p-4 sm:p-6">
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+              <div className={cn(getCardPadding(index), "flex-1 flex flex-col")}>
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-bold">{project.title}</h3>
+                </div>
+                
+                <p className="text-gray-400 text-sm mb-3 line-clamp-2">{project.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-auto">
                   {project.technologies && project.technologies.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-2 py-1 rounded">
+                    <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full">
                       {tech}
                     </span>
                   ))}
                 </div>
+                
                 {project.demoVideo && (
-                  <VideoButton 
-                    videoUrl={project.demoVideo}
-                    videoTitle={`${project.title} Demo`}
-                    text="Watch Demo"
-                    iconSize="w-4 h-4"
-                    className="text-sm w-full sm:w-auto"
-                  />
+                  <div className="mt-3">
+                    <VideoButton 
+                      videoUrl={project.demoVideo}
+                      videoTitle={`${project.title} Demo`}
+                      text="Browse product"
+                      iconSize="w-4 h-4"
+                      className="text-sm border border-white text-white hover:bg-white hover:text-black rounded-full px-4 py-2"
+                    />
+                  </div>
                 )}
               </div>
             </div>
