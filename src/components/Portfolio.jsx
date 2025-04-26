@@ -214,14 +214,15 @@ export default function Portfolio() {
                   alt={project.title}
                   className="w-full h-full object-fill transform transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gray-800 dark:bg-grey-200 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="space-x-4">
+                <div className="absolute inset-0 bg-gray-800 dark:bg-grey-200 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                  <div className="space-x-4 relative z-20">
                     {project.github && (
                       <a 
                         href={project.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300"
+                        className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300 cursor-pointer"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <Github className="w-5 h-5" />
                       </a>
@@ -230,7 +231,8 @@ export default function Portfolio() {
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300"
+                      className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300 cursor-pointer"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <ArrowRight className="w-5 h-5" />
                     </a>

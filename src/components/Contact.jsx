@@ -127,7 +127,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Insert your name"
                   required
-                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent bg-gray-800 text-white dark:bg-gray-800 dark:text-gray-100"
                 />
               </div>
               <div>
@@ -139,7 +139,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Insert your email"
                   required
-                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent bg-gray-800 text-white dark:bg-gray-800 dark:text-gray-100"
                 />
               </div>
               <div>
@@ -150,7 +150,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Write your project"
                   required
-                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent min-h-[150px] dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600 focus:border-transparent min-h-[150px] bg-gray-800 text-white dark:bg-gray-800 dark:text-gray-100"
                 />
               </div>
               

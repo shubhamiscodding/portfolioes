@@ -1,7 +1,15 @@
 import { Button } from "./ui/Button"
 import { Download, Trophy, Briefcase, Headphones, Github, Code } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 export default function About() {
+  const navigate = useNavigate();
+
+  const handleResumeClick = (e) => {
+    e.preventDefault();
+    navigate('/resume');
+  };
+
   return (
     <section id="about" className="py-12 md:py-16 lg:py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 md:px-6">
@@ -65,11 +73,12 @@ export default function About() {
             </div>
 
             <div className="flex justify-center md:justify-start">
-              <a href="/resume" target="_self" rel="noopener noreferrer" className="w-full sm:w-auto">
-                <Button className="bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-md px-6 py-3 flex items-center gap-2 w-full sm:w-auto justify-center">
-                  Resume <Download className="w-4 h-4" />
-                </Button>
-              </a>
+              <Button 
+                onClick={handleResumeClick}
+                className="bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-md px-6 py-3 flex items-center gap-2 w-full sm:w-auto justify-center"
+              >
+                Resume <Download className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
