@@ -49,10 +49,10 @@ export default function Header() {
       
       setIsMobile(isMobileDevice);
       
-      // Set the default header based on device type:
-      // - Mobile: static header (showFloatingNav = false)
-      // - Desktop: floating header (showFloatingNav = true)
-      setShowFloatingNav(!isMobileDevice);
+      // Only set default behavior on initial load, don't force it
+      if (!mounted) {
+        setShowFloatingNav(!isMobileDevice);
+      }
     };
 
     // Check on mount and when window resizes
@@ -62,7 +62,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('resize', checkMobile);
     };
-  }, []);
+  }, [mounted]);
 
   // Simulate loading time similar to LoadingScreen component
   useEffect(() => {
@@ -505,21 +505,19 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              {/* Only show toggle option to desktop users on mobile view */}
-              {!isMobile && (
-                <div className="px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1">
-                  <button
-                    onClick={() => {
-                      toggleFloatingNav()
-                      setIsMenuOpen(false)
-                    }}
-                    className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
-                  >
-                    <Move size={16} className="sm:size-[18px] inline-block" />
-                    <span>Switch to floating navbar</span>
-                  </button>
-                </div>
-              )}
+              {/* Always show floating navbar toggle option */}
+              <div className="px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1">
+                <button
+                  onClick={() => {
+                    toggleFloatingNav()
+                    setIsMenuOpen(false)
+                  }}
+                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
+                >
+                  <Move size={16} className="sm:size-[18px] inline-block" />
+                  <span>Switch to {showFloatingNav ? 'static' : 'floating'} navbar</span>
+                </button>
+              </div>
             </nav>
           </motion.div>
         )}

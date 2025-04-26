@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ArrowRight, Github } from "lucide-react"
 import { cn } from "../utils"
 import VideoButton from "./VideoButton"
+import { useTheme } from "./ThemeProvider"
 
 const categories = ["All", "Web", "Figma"]
 
@@ -116,7 +117,8 @@ const projects = [
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All")
-
+  const { theme } = useTheme()
+  
   const filteredProjects =
     activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory)
 
@@ -152,7 +154,7 @@ export default function Portfolio() {
       case 'large':
         return 'h-[65%]';
       case 'medium':
-        return 'h-64';
+        return 'h-[58%]';
       case 'small':
       default:
         return 'h-48';
@@ -166,22 +168,22 @@ export default function Portfolio() {
   }
 
   return (
-    <section id="portfolio" className="py-16 bg-black text-white">
+    <section id="portfolio" className="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="container mx-auto px-4">
         <div className="text-left mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">PROJECTS</h2>
         </div>
 
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
+        <div className="flex gap-4 mb-8 overflow-x-auto pb-2 border-b border-gray-800 dark:border-gray-200">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-6 py-2 border border-white rounded-full text-sm transition-colors whitespace-nowrap",
+                "px-6 py-2 border border-gray-800 dark:border-white rounded-full text-sm transition-colors whitespace-nowrap",
                 activeCategory === category
-                  ? "bg-white text-black"
-                  : "bg-transparent text-white hover:bg-white hover:bg-opacity-10"
+                  ? "bg-gray-800 dark:bg-white text-white dark:text-gray-900"
+                  : "bg-transparent text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10"
               )}
             >
               {category}
@@ -194,7 +196,12 @@ export default function Portfolio() {
             <div 
               key={project.id} 
               className={cn(
-                "rounded-lg overflow-hidden border border-gray-800 transition-all duration-300 hover:shadow-lg hover:shadow-gray-700/20 flex flex-col",
+                "relative rounded-lg overflow-hidden transition-all duration-300",
+                "before:absolute before:inset-0 before:border-2 before:border-gray-200 dark:before:border-gray-700 before:rounded-lg",
+                "hover:before:border-gray-400 dark:hover:before:border-gray-500",
+                "after:absolute after:inset-0 after:border after:border-gray-100 dark:after:border-gray-800 after:rounded-lg",
+                "hover:shadow-xl hover:shadow-gray-100/20 dark:hover:shadow-gray-900/30",
+                "flex flex-col group",
                 getSizeClasses(project.size, index),
                 project.bgColor,
                 index % 3 === 0 ? 'mt-2' : '',
@@ -205,16 +212,16 @@ export default function Portfolio() {
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  className="w-full h-full object-fill transform transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-fill transform transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gray-800 dark:bg-grey-200 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="space-x-4">
                     {project.github && (
                       <a 
                         href={project.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center p-2 bg-white rounded-full text-black hover:bg-gray-200 transition-colors duration-300"
+                        className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300"
                       >
                         <Github className="w-5 h-5" />
                       </a>
@@ -223,7 +230,7 @@ export default function Portfolio() {
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center p-2 bg-white rounded-full text-black hover:bg-gray-200 transition-colors duration-300"
+                      className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300"
                     >
                       <ArrowRight className="w-5 h-5" />
                     </a>
@@ -232,14 +239,14 @@ export default function Portfolio() {
               </div>
               <div className={cn(getCardPadding(index), "flex-1 flex flex-col")}>
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-bold">{project.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{project.title}</h3>
                 </div>
                 
-                <p className="text-gray-400 text-sm mb-3 line-clamp-2">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-auto">
                   {project.technologies && project.technologies.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full">
+                    <span key={index} className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 px-2 py-1 rounded-full">
                       {tech}
                     </span>
                   ))}
@@ -252,7 +259,7 @@ export default function Portfolio() {
                       videoTitle={`${project.title} Demo`}
                       text="Browse product"
                       iconSize="w-4 h-4"
-                      className="text-sm border border-white text-white hover:bg-white hover:text-black rounded-full px-4 py-2"
+                      className="text-sm border border-gray-800 dark:border-white text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 rounded-full px-4 py-2"
                     />
                   </div>
                 )}
