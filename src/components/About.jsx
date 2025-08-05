@@ -19,7 +19,7 @@ export default function About() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 md:gap-12">
-          <div className="w-full md:w-2/5 mb-8 md:mb-0 flex justify-center">
+          <div className="w-full md:w-2/5 mb-8 md:mb-0 flex ">
             <div className="relative rounded-lg overflow-hidden shadow-xl w-64 h-64 sm:w-80 sm:h-80">
               <img 
                 src="https://res.cloudinary.com/dqhn4dq02/image/upload/v1740113553/jm7lzaefxenoz27qzxfz.jpg" 
@@ -30,11 +30,6 @@ export default function About() {
           </div>
           
           <div className="w-full md:w-3/5">
-            <p className="text-gray-600 dark:text-gray-400 mb-6 text-base md:text-lg">
-              Full-stack developer specializing in JavaScript and React. I create responsive web applications with clean UI/UX interfaces. 
-              With years of experience in both frontend and backend development, I've delivered numerous successful projects including website clones, 
-              games, and custom business applications.
-            </p>
 
             <div className="bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-md mb-6 md:mb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center">
