@@ -50,7 +50,7 @@ const projects = [
     id: 4,
     title: "Youtube Clone",
     category: "Web",
-    image: "https://media2.salon.com/2025/02/youtube_logo_is_displayed_on_a_mobile_phone_1246972841.jpg",
+    image: "https://cdn.iconscout.com/icon/free/png-512/free-youtube-104-432560.png?f=webp&w=512",
     link: "https://youtube-frontend-ch16.onrender.com",
     github: "https://github.com/shubhamiscodding/spotify-with-react/tree/main/you-vite-react",
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
