@@ -20,7 +20,7 @@ const projects = [
     technologies: ["MongoDB", "Express", "React", "Node.js", "Tailwindcss", "JavaScript"],
     demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
     size: "large", // large card
-    bgColor: "bg-zinc-900", // changed from orange to dark gray
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]", // changed from orange to dark gray
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = [
     description: "A pixel-perfect clone of the Progcap platform, showcasing advanced React implementation and responsive design techniques.",
     technologies: ["React", "CSS", "JavaScript"],
     size: "small",
-    bgColor: "bg-black",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const projects = [
     description: "A faithful recreation of the Apollo healthcare platform interface, demonstrating attention to detail in UI/UX design.",
     technologies: ["HTML", "CSS"],
     size: "small",
-    bgColor: "bg-zinc-800",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const projects = [
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
     technologies: ["React", "API Integration"],
     size: "medium",
-    bgColor: "bg-black",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ const projects = [
     description: "A sleek Figma prototype for a financial management tool with a simple and intuitive UI.",
     technologies: ["Figma", "Simple UI"],
     size: "small",
-    bgColor: "bg-zinc-800",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 6,
@@ -78,7 +78,7 @@ const projects = [
     description: "A Figma design for a fragrance brand landing page, featuring prototyping and a clean UI.",
     technologies: ["Figma", "Simple UI", "Prototyping"],
     size: "medium",
-    bgColor: "bg-zinc-900",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 7,
@@ -89,7 +89,7 @@ const projects = [
     description: "A Figma prototype for a cricket news platform with interactive elements.",
     technologies: ["Figma", "Prototyping"],
     size: "large",
-    bgColor: "bg-zinc-800",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 8,
@@ -100,7 +100,7 @@ const projects = [
     description: "A Figma recreation of Instagram's interface with prototyping features.",
     technologies: ["Figma", "Prototyping"],
     size: "small",
-    bgColor: "bg-black",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
   {
     id: 9,
@@ -111,7 +111,7 @@ const projects = [
     description: "A unique one-page social media design created in Figma with a creative layout.",
     technologies: ["Figma"],
     size: "medium",
-    bgColor: "bg-black",
+    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
   },
 ]
 
@@ -197,9 +197,9 @@ export default function Portfolio() {
               key={project.id} 
               className={cn(
                 "relative rounded-lg overflow-hidden transition-all duration-300",
-                "before:absolute before:inset-0 before:border-2 before:border-gray-200 dark:before:border-gray-700 before:rounded-lg",
-                "hover:before:border-gray-400 dark:hover:before:border-gray-500",
-                "after:absolute after:inset-0 after:border after:border-gray-100 dark:after:border-gray-800 after:rounded-lg",
+                "before:absolute before:inset-0 before:border-2 before:border-[#030712] dark:before:border-gray-700 before:rounded-lg",
+                "hover:before:border-[#030712] dark:hover:before:border-gray-500",
+                "after:absolute after:inset-0 after:border after:border-[#030712] dark:after:border-gray-800 after:rounded-lg",
                 "hover:shadow-xl hover:shadow-gray-100/20 dark:hover:shadow-gray-900/30",
                 "flex flex-col group",
                 getSizeClasses(project.size, index),
@@ -214,7 +214,7 @@ export default function Portfolio() {
                   alt={project.title}
                   className="w-full h-full object-fill transform transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gray-800 dark:bg-grey-200 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-gray-800 dark:bg-gray-200 bg-opacity-30 opacity-0 group-hover:opacity-40 transition-opacity duration-300 flex items-center justify-center z-10">
                   <div className="space-x-4 relative z-20">
                     {project.github && (
                       <a 

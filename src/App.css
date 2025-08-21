@@ -104,7 +104,7 @@ body {
   textarea,
   select,
   [role="button"] {
-    cursor: none !important;
+    cursor: auto !important;
   }
 
   /* Better cursor handling for video panel */
@@ -134,27 +134,9 @@ body {
     cursor: pointer !important;
   }
 
-  /* Add a subtle trail effect to links and buttons */
-  a:hover::after,
-  button:hover::after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    z-index: 9998;
-    pointer-events: none;
-    animation: pulse 1.5s infinite;
-  }
+  /* Removed custom cursor trail effect */
 
-  /* Disable trail effect in video section */
-  #videoSection a:hover::after,
-  #videoSection button:hover::after,
-  .video-panel-open #videoSection a:hover::after,
-  .video-panel-open #videoSection button:hover::after {
-    display: none !important;
-  }
+  /* Removed hover trail effect overrides for video section */
 
   /* Custom cursor fix for video panel */
   .video-section {
@@ -199,7 +181,7 @@ body {
 
   /* Ensure cursor is visible across all sections */
   html, body {
-    cursor: none !important;
+    cursor: auto !important;
   }
 
   .cursor-over-video {
@@ -268,18 +250,18 @@ body {
 
 /* Video Panel Styles */
 #videoSection {
-  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: -5px 0 20px rgba(41, 41, 43, 0.1);
   isolation: isolate; /* Create a stacking context */
   z-index: 1000 !important;
 }
 
 #videoSection.dark-theme {
-  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: -5px 0 20px rgba(41, 41, 43, 0.3);
 }
 
 .video-placeholder {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(41, 41, 43, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -287,7 +269,7 @@ body {
 }
 
 .dark-theme .video-placeholder {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(201, 199, 186, 0.05);
 }
 
 /* Responsive fixes for video panel */

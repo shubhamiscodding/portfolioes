@@ -8,7 +8,7 @@ import Contact from "./components/Contact"
 import Footer from "./components/Footer"
 import ScrollToTop from "./components/ScrollToTop"
 import LoadingScreen from "./components/LoadingScreen"
-import CustomCursor from "./components/CustomCursor"
+// import CustomCursor from "./components/CustomCursor"
 import Resume from "./components/Resume"
 import { ThemeProvider } from "./components/ThemeProvider"
 import { VideoProvider } from "./components/VideoContext"
@@ -48,7 +48,7 @@ function App() {
       <VideoProvider>
         <Router>
           <div className={`min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 ${isCompact ? 'compact-mode' : ''}`}>
-            <CustomCursor />
+            {/* <CustomCursor /> */}
             <LoadingScreen />
             <Routes>
               <Route path="/resume" element={<Resume />} />
