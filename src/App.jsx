@@ -47,7 +47,7 @@ function App() {
     <ThemeProvider>
       <VideoProvider>
         <Router>
-          <div className={`min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 ${isCompact ? 'compact-mode' : ''}`}>
+          <div className={`min-h-screen bg-white dark:bg-gray-950 evening:bg-evening-background text-gray-900 dark:text-gray-100 evening:text-evening-primary ${isCompact ? 'compact-mode' : ''}`}>
             {/* <CustomCursor /> */}
             <LoadingScreen />
             <Routes>

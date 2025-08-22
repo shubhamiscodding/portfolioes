@@ -7,6 +7,10 @@ html.dark {
   color-scheme: dark;
 }
 
+html.evening {
+  color-scheme: light;
+}
+
 /* Add smooth transitions for theme changes */
 * {
   transition-property: color, background-color, border-color;
@@ -85,16 +89,98 @@ html.dark {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .evening {
+    --background: 200 14% 76%; /* #B0BEC5 cool grey */
+    --foreground: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --card: 200 14% 76%; /* #B0BEC5 cool grey */
+    --card-foreground: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --popover: 200 14% 76%; /* #B0BEC5 cool grey */
+    --popover-foreground: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --primary: 30 3% 12%; /* #1F1E1C warm dark gray */
+    --primary-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --secondary: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --secondary-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --muted: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --muted-foreground: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --accent: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --accent-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --border: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --input: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --ring: 30 3% 12%; /* #1F1E1C warm dark gray */
+    --chart-1: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --chart-2: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --chart-3: 30 3% 12%; /* #1F1E1C warm dark gray */
+    --chart-4: 200 14% 76%; /* #B0BEC5 cool grey */
+    --chart-5: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --sidebar-background: 200 14% 76%; /* #B0BEC5 cool grey */
+    --sidebar-foreground: 30 3% 25%; /* #4A3F35 much darker warm taupe */
+    --sidebar-primary: 30 3% 12%; /* #1F1E1C warm dark gray */
+    --sidebar-primary-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --sidebar-accent: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --sidebar-accent-foreground: 200 14% 76%; /* #B0BEC5 cool grey */
+    --sidebar-border: 200 25% 25%; /* #2F4F4F dark slate gray */
+    --sidebar-ring: 30 3% 12%; /* #1F1E1C warm dark gray */
+  }
 }
 
 @layer base {
   * {
-    @apply border-[#e5e7eb] dark:border-gray-800;
+    @apply border-[#e5e7eb] dark:border-gray-800 evening:border-[#2F4F4F];
   }
   body {
     @apply bg-background text-foreground;
     font-family: Arial, Helvetica, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Evening theme background variants */
+@layer utilities {
+  .evening\:bg-gray-50 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-100 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-200 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-300 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-400 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-500 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-600 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-700 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-800 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-gray-900 {
+    background-color: #B0BEC5;
+  }
+  
+  .evening\:bg-white {
+    background-color: #B0BEC5;
   }
 }
 

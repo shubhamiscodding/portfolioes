@@ -20,7 +20,7 @@ const projects = [
     technologies: ["MongoDB", "Express", "React", "Node.js", "Tailwindcss", "JavaScript"],
     demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
     size: "large", // large card
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]", // changed from orange to dark gray
+            bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]", // changed to #E5E0D8
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = [
     description: "A pixel-perfect clone of the Progcap platform, showcasing advanced React implementation and responsive design techniques.",
     technologies: ["React", "CSS", "JavaScript"],
     size: "small",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const projects = [
     description: "A faithful recreation of the Apollo healthcare platform interface, demonstrating attention to detail in UI/UX design.",
     technologies: ["HTML", "CSS"],
     size: "small",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const projects = [
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
     technologies: ["React", "API Integration"],
     size: "medium",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 5,
@@ -67,18 +67,18 @@ const projects = [
     description: "A sleek Figma prototype for a financial management tool with a simple and intuitive UI.",
     technologies: ["Figma", "Simple UI"],
     size: "small",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 6,
     title: "Smellwell",
     category: "Figma",
-    image: "https://imgs.search.brave.com/ELfHBTs87TF2P24kqZI3_46dZHTAEFr2ute2byxK3Zw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bmFtZWJyYW5kc3Bl/cmZ1bWUuY29tL2lt/YWdlcy93ZWxjb21l/LmpwZw",
+    image: "https://imgs.search.brave.com/ELfHBTs87TF2P24kqZI3_46dZHTAEFr2ute2byxK3Zw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bmFtZWJyYW5kc3Bl/cmZ1bWUuY29tL2lt/YWdlcy93ZWxjb21lLmpwZw",
     link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?page-id=218%3A73&node-id=227-440&viewport=588%2C159%2C0.11&t=IH2rnykLPCUofh1R-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=227%3A440",
     description: "A Figma design for a fragrance brand landing page, featuring prototyping and a clean UI.",
     technologies: ["Figma", "Simple UI", "Prototyping"],
     size: "medium",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 7,
@@ -89,7 +89,7 @@ const projects = [
     description: "A Figma prototype for a cricket news platform with interactive elements.",
     technologies: ["Figma", "Prototyping"],
     size: "large",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]",
   },
   {
     id: 8,
@@ -100,7 +100,7 @@ const projects = [
     description: "A Figma recreation of Instagram's interface with prototyping features.",
     technologies: ["Figma", "Prototyping"],
     size: "small",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
   },
   {
     id: 9,
@@ -111,7 +111,7 @@ const projects = [
     description: "A unique one-page social media design created in Figma with a creative layout.",
     technologies: ["Figma"],
     size: "medium",
-    bgColor: "bg-[#A8A69A] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]",
   },
 ]
 
@@ -168,22 +168,22 @@ export default function Portfolio() {
   }
 
   return (
-    <section id="portfolio" className="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <section id="portfolio" className="py-16 bg-white dark:bg-gray-900 evening:bg-evening-background text-gray-900 dark:text-white evening:text-evening-primary">
       <div className="container mx-auto px-4">
         <div className="text-left mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">PROJECTS</h2>
         </div>
 
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-2 border-b border-gray-800 dark:border-gray-200">
+        <div className="flex gap-4 mb-8 overflow-x-auto pb-2 border-b border-gray-800 dark:border-gray-200 evening:border-evening-foreground">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-6 py-2 border border-gray-800 dark:border-white rounded-full text-sm transition-colors whitespace-nowrap",
+                "px-6 py-2 border border-gray-800 dark:border-white evening:border-evening-primary rounded-full text-sm transition-colors whitespace-nowrap",
                 activeCategory === category
-                  ? "bg-gray-800 dark:bg-white text-white dark:text-gray-900"
-                  : "bg-transparent text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10"
+                  ? "bg-gray-800 dark:bg-white evening:bg-evening-primary text-white dark:text-gray-900 evening:text-evening-background"
+                  : "bg-transparent text-gray-800 dark:text-white evening:text-evening-primary hover:bg-gray-100 dark:hover:bg-white/10 evening:hover:bg-evening-foreground"
               )}
             >
               {category}
@@ -197,9 +197,9 @@ export default function Portfolio() {
               key={project.id} 
               className={cn(
                 "relative rounded-lg overflow-hidden transition-all duration-300",
-                "before:absolute before:inset-0 before:border-2 before:border-[#030712] dark:before:border-gray-700 before:rounded-lg",
-                "hover:before:border-[#030712] dark:hover:before:border-gray-500",
-                "after:absolute after:inset-0 after:border after:border-[#030712] dark:after:border-gray-800 after:rounded-lg",
+                "before:absolute before:inset-0 before:border-2 before:border-[#030712] dark:before:border-gray-700 evening:before:border-evening-primary before:rounded-lg",
+                "hover:before:border-[#030712] dark:hover:before:border-gray-500 evening:hover:before:border-evening-secondary",
+                "after:absolute after:inset-0 after:border after:border-[#030712] dark:after:border-gray-800 evening:after:border-evening-secondary after:rounded-lg",
                 "hover:shadow-xl hover:shadow-gray-100/20 dark:hover:shadow-gray-900/30",
                 "flex flex-col group",
                 getSizeClasses(project.size, index),
@@ -214,14 +214,14 @@ export default function Portfolio() {
                   alt={project.title}
                   className="w-full h-full object-fill transform transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gray-800 dark:bg-gray-200 bg-opacity-30 opacity-0 group-hover:opacity-40 transition-opacity duration-300 flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-gray-800 dark:bg-gray-200 evening:bg-evening-primary bg-opacity-30 opacity-0 group-hover:opacity-40 transition-opacity duration-300 flex items-center justify-center z-10">
                   <div className="space-x-4 relative z-20">
                     {project.github && (
                       <a 
                         href={project.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300 cursor-pointer"
+                        className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 evening:bg-white rounded-full text-gray-900 dark:text-white evening:text-evening-primary hover:bg-gray-100 dark:hover:bg-gray-300 evening:hover:bg-evening-foreground transition-colors duration-300 cursor-pointer"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Github className="w-5 h-5" />
@@ -231,7 +231,7 @@ export default function Portfolio() {
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 rounded-full text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300 cursor-pointer"
+                      className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 evening:bg-white rounded-full text-gray-900 dark:text-white evening:text-evening-primary hover:bg-gray-100 dark:hover:bg-gray-300 evening:hover:bg-evening-foreground transition-colors duration-300 cursor-pointer"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <ArrowRight className="w-5 h-5" />
@@ -241,14 +241,14 @@ export default function Portfolio() {
               </div>
               <div className={cn(getCardPadding(index), "flex-1 flex flex-col")}>
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{project.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white evening:text-evening-primary">{project.title}</h3>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground text-sm mb-3 line-clamp-2">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-auto">
                   {project.technologies && project.technologies.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 px-2 py-1 rounded-full">
+                    <span key={index} className="text-xs bg-gray-100 dark:bg-gray-800 evening:bg-white text-gray-800 dark:text-gray-300 evening:text-evening-primary px-2 py-1 rounded-full">
                       {tech}
                     </span>
                   ))}
@@ -261,7 +261,7 @@ export default function Portfolio() {
                       videoTitle={`${project.title} Demo`}
                       text="Browse product"
                       iconSize="w-4 h-4"
-                      className="text-sm border border-gray-800 dark:border-white text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 rounded-full px-4 py-2"
+                      className="text-sm border border-gray-800 dark:border-white evening:border-evening-primary text-gray-800 dark:text-white evening:text-evening-primary hover:bg-gray-800 hover:text-white dark:hover:bg-white evening:hover:bg-evening-primary evening:hover:text-evening-background rounded-full px-4 py-2"
                     />
                   </div>
                 )}

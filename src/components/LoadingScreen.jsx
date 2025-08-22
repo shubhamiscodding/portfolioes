@@ -24,9 +24,10 @@ export default function LoadingScreen() {
 
   // Determine colors based on theme
   const isDark = mounted && theme === "dark"
-  const bgColor = isDark ? "bg-gray-900" : "bg-white"
-  const blobColor = isDark ? "bg-gray-200" : "bg-gray-800"
-  const strokeColor = isDark ? "stroke-gray-300" : "stroke-gray-700"
+  const isEvening = mounted && theme === "evening"
+  const bgColor = isDark ? "bg-gray-900" : isEvening ? "bg-evening-background" : "bg-white"
+  const blobColor = isDark ? "bg-gray-200" : isEvening ? "bg-evening-secondary" : "bg-gray-800"
+  const strokeColor = isDark ? "stroke-gray-300" : isEvening ? "stroke-evening-foreground" : "stroke-gray-700"
   
   return (
     <div className={`fixed inset-0 ${bgColor} z-50 flex items-center justify-center`}>

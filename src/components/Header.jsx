@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Menu, X, Moon, Sun, Move, Home, Briefcase, Code2, Phone, Lightbulb, Layers } from "lucide-react"
+import { Menu, X, Moon, Sun, Sunset, Move, Home, Briefcase, Code2, Phone, Lightbulb, Layers } from "lucide-react"
 import { cn } from "../utils"
 import { motion, AnimatePresence } from "framer-motion"
 import Draggable from "react-draggable"
@@ -270,7 +270,7 @@ export default function Header() {
     >
       <div
         ref={nodeRef}
-        className="fixed z-50 flex items-center gap-1 sm:gap-2 p-2 sm:p-3 bg-gray-900 dark:bg-white rounded-xl shadow-lg cursor-move"
+        className="fixed z-50 flex items-center gap-1 sm:gap-2 p-2 sm:p-3 bg-gray-900 dark:bg-white evening:bg-[#2F4F4F] rounded-xl shadow-lg cursor-move"
         style={{ touchAction: "none" }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -282,8 +282,8 @@ export default function Header() {
             className={cn(
               "nav-btn p-2 sm:p-3 rounded-xl shadow-lg transition-all hover:scale-[1.3] h-10 sm:h-12 relative",
               activeSection === link.href.substring(1) 
-                ? "bg-gray-200 dark:bg-gray-700" 
-                : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
+                ? "bg-gray-200 dark:bg-gray-700 evening:bg-[#B0BEC5]" 
+                : "bg-gray-100 dark:bg-gray-900 evening:bg-[#B0BEC5] hover:bg-gray-200 dark:hover:bg-gray-700 evening:hover:bg-[#B0BEC5]",
             )}
             aria-label={link.name}
             onTouchStart={(e) => {
@@ -301,12 +301,12 @@ export default function Header() {
               }
             }}
           >
-            <span className="text-gray-900 dark:text-gray-100 inline-block pointer-events-none">{link.icon}</span>
+            <span className="text-gray-900 dark:text-gray-100 evening:text-evening-primary inline-block pointer-events-none">{link.icon}</span>
             <AnimatePresence>
               {activeSection === link.href.substring(1) && (
                 <motion.span
                   layoutId="floating-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800 dark:bg-white mx-1 pointer-events-none"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-800 dark:bg-white evening:bg-evening-primary mx-1 pointer-events-none"
                   initial={{ opacity: 0, width: "0%" }}
                   animate={{ opacity: 1, width: "calc(100% - 0.5rem)" }}
                   exit={{ opacity: 0, width: "0%" }}
@@ -324,7 +324,7 @@ export default function Header() {
         <div className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-2">
           <button
             onClick={navButtonClick(handleThemeToggle)}
-            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
+            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 evening:bg-[#B0BEC5] rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 evening:hover:bg-[#B0BEC5] transition-all hover:scale-[1.3]"
             aria-label="Toggle theme"
             onTouchStart={(e) => {
               e.stopPropagation();
@@ -343,14 +343,16 @@ export default function Header() {
           >
             {mounted &&
               (theme === "dark" ? (
-                <Sun size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
+                <Sun size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 evening:text-evening-primary inline-block pointer-events-none" />
+              ) : theme === "evening" ? (
+                <Sunset size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 evening:text-evening-primary inline-block pointer-events-none" />
               ) : (
-                <Moon size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
+                <Moon size={18} className="sm:size-5 text-gray-900 dark:text-gray-100 evening:text-evening-primary inline-block pointer-events-none" />
               ))}
           </button>
           <button
             onClick={navButtonClick(toggleFloatingNav)}
-            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:scale-[1.3]"
+            className="nav-btn p-2 sm:p-3 bg-gray-100 dark:bg-gray-900 evening:bg-evening-background rounded-xl shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 evening:hover:bg-[#B0BEC5] transition-all hover:scale-[1.3]"
             onTouchStart={(e) => {
               e.stopPropagation();
               handleTouchStart(e);
@@ -366,7 +368,7 @@ export default function Header() {
               }
             }}
           >
-            <X className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5 text-gray-900 dark:text-gray-100 inline-block pointer-events-none" />
+            <X className="w-[1.15rem] h-[1.15rem] sm:w-5 sm:h-5 text-gray-900 dark:text-gray-100 evening:text-evening-primary inline-block pointer-events-none" />
           </button>
         </div>
       </div>
@@ -379,14 +381,14 @@ export default function Header() {
       <div
         className={cn(
           "transition-all duration-300 rounded-xl backdrop-blur-md",
-          scrolled ? "bg-white/90 dark:bg-gray-900/90 shadow-lg" : "bg-white/80 dark:bg-gray-900/80",
+          scrolled ? "bg-white/90 dark:bg-gray-900/90 evening:bg-evening-background/90 shadow-lg" : "bg-white/80 dark:bg-gray-900/80 evening:bg-evening-background/80",
           "py-2 sm:py-3",
         )}
       >
         <div className="container mx-auto px-3 sm:px-4 md:px-6 flex items-center justify-between">
           <a
             href="#home"
-            className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 evening:text-evening-primary hover:text-gray-600 dark:hover:text-gray-300 evening:hover:text-evening-secondary transition-colors"
             onClick={(e) => {
               e.preventDefault()
               scrollToSection("#home")
@@ -402,10 +404,10 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-gray-600 dark:text-gray-300 transition-all duration-300 text-sm sm:text-base",
+                  "relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-gray-600 dark:text-gray-300 evening:text-evening-foreground transition-all duration-300 text-sm sm:text-base",
                   activeSection === link.href.substring(1)
-                    ? "text-gray-900 dark:text-white font-medium"
-                    : "hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50",
+                    ? "text-gray-900 dark:text-white evening:text-evening-primary font-medium"
+                    : "hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-100/50 dark:hover:bg-gray-800/50 evening:hover:bg-[#B0BEC5]/50",
                 )}
                 onClick={(e) => {
                   e.preventDefault()
@@ -417,7 +419,7 @@ export default function Header() {
                   {activeSection === link.href.substring(1) && (
                     <motion.span
                       layoutId="navbar-indicator"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white mx-2"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white evening:bg-evening-primary mx-2"
                       initial={{ opacity: 0, width: "0%" }}
                       animate={{ opacity: 1, width: "calc(100% - 1rem)" }}
                       exit={{ opacity: 0, width: "0%" }}
@@ -438,16 +440,16 @@ export default function Header() {
             {/* Theme Toggle */}
             <button
               onClick={handleThemeToggle}
-              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hover:scale-[1.3]"
+              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-100/50 dark:hover:bg-gray-800/50 evening:hover:bg-[#B0BEC5]/50 transition-colors hover:scale-[1.3]"
               aria-label="Toggle theme"
             >
-              {mounted && (theme === "dark" ? <Sun size={18} className="sm:size-5 inline-block" /> : <Moon size={18} className="sm:size-5 inline-block" />)}
+              {mounted && (theme === "dark" ? <Sun size={18} className="sm:size-5 inline-block" /> : theme === "evening" ? <Sunset size={18} className="sm:size-5 inline-block" /> : <Moon size={18} className="sm:size-5 inline-block" />)}
             </button>
 
             {/* Float Toggle - Only visible on desktop */}
             <button
               onClick={toggleFloatingNav}
-              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors hidden md:flex hover:scale-[1.3]"
+              className="p-1.5 sm:p-2 rounded-full text-gray-600 dark:text-gray-300 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-100/50 dark:hover:bg-gray-800/50 evening:hover:bg-[#B0BEC5]/50 transition-colors hidden md:flex hover:scale-[1.3]"
               aria-label="Show floating navigation"
             >
               <Move size={18} className="sm:size-5 inline-block" />
@@ -455,7 +457,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-1.5 sm:p-2 rounded-full transition-colors hover:scale-[1.3]"
+              className="md:hidden text-gray-600 dark:text-gray-300 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-100 dark:hover:bg-gray-800 evening:hover:bg-[#B0BEC5] p-1.5 sm:p-2 rounded-full transition-colors hover:scale-[1.3]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={20} className="sm:size-6 inline-block" /> : <Menu size={20} className="sm:size-6 inline-block" />}
@@ -466,7 +468,7 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <motion.div
-            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
+            className="md:hidden bg-white/95 dark:bg-gray-900/95 evening:bg-evening-background/95 backdrop-blur-md shadow-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -479,8 +481,8 @@ export default function Header() {
                   className={cn(
                     "px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1 rounded-md transition-all duration-200 flex items-center gap-2 text-sm sm:text-base",
                     activeSection === link.href.substring(1)
-                      ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
-                      : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50",
+                      ? "bg-gray-100 dark:bg-gray-800 evening:bg-[#B0BEC5] text-gray-900 dark:text-white evening:text-evening-background font-medium"
+                      : "text-gray-600 dark:text-gray-300 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-50 dark:hover:bg-gray-800/50 evening:hover:bg-[#B0BEC5]/50",
                   )}
                   onClick={(e) => {
                     e.preventDefault()
@@ -493,7 +495,7 @@ export default function Header() {
                       {link.icon}
                       {activeSection === link.href.substring(1) && (
                         <motion.span
-                          className="absolute left-0 w-1 h-full bg-gray-900 dark:bg-white rounded-full"
+                          className="absolute left-0 w-1 h-full bg-gray-900 dark:bg-white evening:bg-evening-primary rounded-full"
                           layoutId="mobile-indicator"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -512,7 +514,7 @@ export default function Header() {
                     toggleFloatingNav()
                     setIsMenuOpen(false)
                   }}
-                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md text-gray-900 dark:text-white transition-colors text-sm sm:text-base"
+                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 evening:bg-evening-primary hover:bg-gray-200 dark:hover:bg-gray-700 evening:hover:bg-[#B0BEC5] rounded-md text-gray-900 dark:text-white evening:text-evening-background transition-colors text-sm sm:text-base"
                 >
                   <Move size={16} className="sm:size-[18px] inline-block" />
                   <span>Switch to {showFloatingNav ? 'static' : 'floating'} navbar</span>

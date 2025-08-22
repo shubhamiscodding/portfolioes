@@ -36,18 +36,19 @@ export function ThemeProvider({ children }) {
     // Get html element
     const html = document.documentElement;
     
-    // Remove both classes
-    html.classList.remove('light', 'dark');
+    // Remove all theme classes
+    html.classList.remove('light', 'dark', 'evening');
     
     // Add the current theme class
     html.classList.add(theme);
   }, [theme]);
 
-  // Create theme toggle function
+  // Create theme toggle function that cycles through all three themes
   const toggleTheme = () => {
     setTheme(prevTheme => {
-      const newTheme = prevTheme === "dark" ? "light" : "dark";
-      return newTheme;
+      if (prevTheme === "light") return "dark";
+      if (prevTheme === "dark") return "evening";
+      return "light";
     });
   };
 

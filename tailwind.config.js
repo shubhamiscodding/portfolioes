@@ -33,7 +33,7 @@ module.exports = {
 				},
 				card: {
 					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))',
+					foreground: 'hsl(var(--popover-foreground))',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -59,9 +59,21 @@ module.exports = {
 					900: '#29292B',
 					950: '#29292B',
 				},
+				// Evening theme colors
+				evening: {
+					background: '#B0BEC5', // cool grey
+					primary: '#1F1E1C',    // warm dark gray
+					foreground: '#2F2D2A',  // much darker warm taupe
+					secondary: '#2F4F4F',   // dark slate gray
+				},
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		// Add custom variant for evening theme
+		function({ addVariant }) {
+			addVariant('evening', 'html.evening &');
+		}
+	],
 }
 

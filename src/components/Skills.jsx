@@ -9,10 +9,10 @@ const SkillItem = ({ name, icon, delay = 0 }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: delay * 0.1 }}
-      className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-full px-4 py-2 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 hover:translate-y-[-2px] transition-all cursor-pointer"
+                  className="flex items-center gap-2 bg-white dark:bg-gray-800 evening:bg-white rounded-full px-4 py-2 shadow-sm border border-gray-100 dark:border-gray-700 evening:border-evening-foreground hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 evening:hover:border-evening-secondary hover:translate-y-[-2px] transition-all cursor-pointer"
     >
       <span className="text-lg">{icon}</span>
-      <span className="font-medium text-gray-900 dark:text-gray-100">{name}</span>
+      <span className="font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary">{name}</span>
     </motion.div>
   )
 }
@@ -23,7 +23,7 @@ const frontendSkills = [
   { name: "React", icon: <Code className="text-cyan-500" /> },
   { name: "Tailwind CSS", icon: <Palette className="text-teal-500" /> },
   { name: "Angular", icon: <Code className="text-red-500" /> },
-  { name: "Shadcn UI", icon: <Code className="text-white-500" /> },
+          { name: "Shadcn UI", icon: <Code className="text-white" /> },
   { name: "HTML5", icon: <Layout className="text-orange-500" /> },
   { name: "CSS3", icon: <Palette className="text-blue-500" /> },
   { name: "Figma", icon: <FigmaIcon className="text-pink-500" /> },
@@ -45,7 +45,7 @@ const backendSkills = [
 const toolsSkills = [
   { name: "Git & Github", icon: <GitBranch className="text-red-500" /> },
   { name: "Docker", icon: <Globe className="text-blue-600" /> },
-  { name: "Vercel", icon: <Globe className="text-gray-900 dark:text-gray-100" /> },
+  { name: "Vercel", icon: <Globe className="text-gray-900 dark:text-gray-100 evening:text-evening-primary" /> },
   { name: "Netlify", icon: <Globe className="text-teal-600" /> },
   { name: "Postman", icon: <Server className="text-orange-500" /> },
   { name: "Deployment", icon: <Server className="text-indigo-500" /> },
@@ -54,10 +54,10 @@ const toolsSkills = [
 // SkillBox component
 const SkillBox = ({ title, skills }) => {
   return (
-    <div className="border-2 border-black dark:border-gray-700 p-6 h-full rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] hover:border-gray-700 dark:hover:border-gray-500 bg-white dark:bg-gray-800 relative overflow-hidden group">
+            <div className="border-2 border-black dark:border-gray-700 evening:border-evening-primary p-6 h-full rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] hover:border-gray-700 dark:hover:border-gray-500 evening:hover:border-evening-secondary bg-white dark:bg-gray-800 evening:bg-white relative overflow-hidden group">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-100 dark:to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="relative z-10">
-        <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-gray-200">
+        <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100 evening:text-evening-primary group-hover:text-gray-800 dark:group-hover:text-gray-200 evening:group-hover:text-evening-secondary">
           {title === "Frontend" && <Code className="w-6 h-6 text-blue-500" />}
           {title === "Backend" && <Database className="w-6 h-6 text-green-500" />}
           {title === "Tools" && <Wrench className="w-6 h-6 text-purple-500" />}
@@ -86,12 +86,12 @@ export default function Skills() {
       }}
     >
       {/* Add an overlay div for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95 evening:from-white/90 evening:to-gray-50/90"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Skills</h2>
-          <p className="text-gray-600 dark:text-gray-400">What I Bring to the Table</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Skills</h2>
+          <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">What I Bring to the Table</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
