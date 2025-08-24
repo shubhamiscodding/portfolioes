@@ -468,7 +468,7 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <motion.div
-            className="md:hidden bg-white/95 dark:bg-gray-900/95 evening:bg-evening-background/95 backdrop-blur-md shadow-lg"
+            className="md:hidden bg-white dark:bg-gray-950 evening:bg-evening-background backdrop-blur-md shadow-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -481,8 +481,8 @@ export default function Header() {
                   className={cn(
                     "px-3 sm:px-4 py-2.5 sm:py-3 mx-2 my-0.5 sm:my-1 rounded-md transition-all duration-200 flex items-center gap-2 text-sm sm:text-base",
                     activeSection === link.href.substring(1)
-                      ? "bg-gray-100 dark:bg-gray-800 evening:bg-[#B0BEC5] text-gray-900 dark:text-white evening:text-evening-background font-medium"
-                      : "text-gray-600 dark:text-gray-300 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-white evening:hover:text-evening-primary hover:bg-gray-50 dark:hover:bg-gray-800/50 evening:hover:bg-[#B0BEC5]/50",
+                      ? "bg-gray-200 dark:bg-gray-700 evening:bg-gray-100 text-gray-900 dark:text-white evening:text-gray-900 font-medium"
+                      : "text-gray-900 dark:text-gray-100 evening:text-gray-900 hover:text-gray-700 dark:hover:text-gray-200 evening:hover:text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700/50 evening:hover:bg-gray-100",
                   )}
                   onClick={(e) => {
                     e.preventDefault()
@@ -495,7 +495,7 @@ export default function Header() {
                       {link.icon}
                       {activeSection === link.href.substring(1) && (
                         <motion.span
-                          className="absolute left-0 w-1 h-full bg-gray-900 dark:bg-white evening:bg-evening-primary rounded-full"
+                          className="absolute left-0 w-1 h-full bg-gray-900 dark:bg-white evening:bg-gray-900 rounded-full"
                           layoutId="mobile-indicator"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -514,7 +514,7 @@ export default function Header() {
                     toggleFloatingNav()
                     setIsMenuOpen(false)
                   }}
-                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-800 evening:bg-evening-primary hover:bg-gray-200 dark:hover:bg-gray-700 evening:hover:bg-[#B0BEC5] rounded-md text-gray-900 dark:text-white evening:text-evening-background transition-colors text-sm sm:text-base"
+                  className="w-full px-3 py-2 mt-1 sm:mt-2 flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 evening:bg-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 evening:hover:bg-gray-200 rounded-md text-gray-900 dark:text-white evening:text-gray-900 transition-colors text-sm sm:text-base"
                 >
                   <Move size={16} className="sm:size-[18px] inline-block" />
                   <span>Switch to {showFloatingNav ? 'static' : 'floating'} navbar</span>
