@@ -55,7 +55,7 @@ function App() {
               <Route path="/" element={
                 <>
                   <Header />
-                  <main>
+                  <main className="mx-auto px-[10%]">
                     <Home />
                     <About />
                     <Skills />

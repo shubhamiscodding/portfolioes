@@ -14,7 +14,7 @@ export default function Footer() {
       {/* Add overlay for better readability */}
       <div className="absolute inset-0 bg-white/95 dark:bg-gray-900/95 evening:bg-evening-background/95"></div>
       
-      <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
+      <div className="text-center relative z-10">
         <a href="#home" className="text-2xl font-bold text-gray-900 dark:text-white evening:text-evening-primary mb-8 inline-block">
           Shubham Modi
         </a>

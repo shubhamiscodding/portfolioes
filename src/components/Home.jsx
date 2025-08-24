@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <section id="home" className="pt-20 pb-16 md:pt-32 lg:pt-40 md:pb-24 min-h-screen flex flex-col justify-center relative overflow-hidden bg-white dark:bg-gray-900 evening:bg-evening-background">
       <motion.div 
-        className="container mx-auto px-4 md:px-6"
+        className=""
         animate={{
           width: showVideo ? "60%" : "100%",
           x: showVideo ? "-35%" : 0,

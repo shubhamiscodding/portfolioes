@@ -51,8 +51,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 dark:bg-gray-900 evening:bg-evening-background">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="contact" className="py-16 md:py-24 dark:bg-gray-900 evening:bg-evening-background w-screen -ml-[13%] -mr-[10%]">
+      <div className="px-[10%]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div className="border-2 border-[#030712] dark:border-gray-700 evening:border-evening-primary rounded-lg p-8 bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-8">Talk to me</h3>

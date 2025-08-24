@@ -385,7 +385,7 @@ export default function Header() {
           "py-2 sm:py-3",
         )}
       >
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <a
             href="#home"
             className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 evening:text-evening-primary hover:text-gray-600 dark:hover:text-gray-300 evening:hover:text-evening-secondary transition-colors"

@@ -11,8 +11,8 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="py-12 md:py-16 lg:py-24 bg-gray-50 dark:bg-gray-900 evening:bg-evening-background">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="about" className="py-12 md:py-16 lg:py-24 bg-[#C9C7BA] dark:bg-gray-900 evening:bg-evening-background">
+      <div className="">
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white evening:text-evening-primary mb-2">About Me</h2>
           <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">My introduction</p>
@@ -31,7 +31,7 @@ export default function About() {
           
           <div className="w-full md:w-3/5">
 
-            <div className="bg-white dark:bg-gray-800 evening:bg-white p-4 md:p-5 rounded-lg shadow-md mb-6 md:mb-8">
+            <div className="bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8] p-4 md:p-5 rounded-lg shadow-md mb-6 md:mb-8 border border-gray-200 dark:border-gray-700 evening:border-gray-300">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white evening:text-evening-primary mb-3 flex items-center">
                 <Github className="w-5 h-5 mr-2" /> GitHub Portfolio Highlights
               </h3>

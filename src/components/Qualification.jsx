@@ -11,7 +11,7 @@ export default function Qualification() {
 
   return (
     <section id="qualification" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900 evening:bg-evening-background">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Qualification</h2>
           <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">My personal journey</p>

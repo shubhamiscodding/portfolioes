@@ -169,7 +169,7 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="py-16 bg-white dark:bg-gray-900 evening:bg-evening-background text-gray-900 dark:text-white evening:text-evening-primary">
-      <div className="container mx-auto px-4">
+      <div className="">
         <div className="text-left mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">PROJECTS</h2>
         </div>
