@@ -9,7 +9,7 @@ const SkillItem = ({ name, icon, delay = 0 }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: delay * 0.1 }}
-                  className="flex items-center gap-2 bg-white dark:bg-gray-800 evening:bg-white rounded-full px-4 py-2 shadow-sm border border-gray-100 dark:border-gray-700 evening:border-evening-foreground hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 evening:hover:border-evening-secondary hover:translate-y-[-2px] transition-all cursor-pointer"
+                  className="flex items-center gap-2 bg-white dark:bg-gray-800 evening:bg-[#D1D9CF] rounded-full px-4 py-2 shadow-sm border border-gray-100 dark:border-gray-700 evening:border-evening-foreground hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 evening:hover:border-evening-secondary hover:translate-y-[-2px] transition-all cursor-pointer"
     >
       <span className="text-lg">{icon}</span>
       <span className="font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary">{name}</span>
@@ -54,7 +54,7 @@ const toolsSkills = [
 // SkillBox component
 const SkillBox = ({ title, skills }) => {
   return (
-            <div className="border-2 border-black dark:border-gray-700 evening:border-evening-primary p-6 h-full rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] hover:border-gray-700 dark:hover:border-gray-500 evening:hover:border-evening-secondary bg-white dark:bg-gray-800 evening:bg-white relative overflow-hidden group">
+            <div className="border-2 border-black dark:border-gray-700 evening:border-evening-primary p-6 h-full rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] hover:border-gray-700 dark:hover:border-gray-500 evening:hover:border-evening-secondary bg-white dark:bg-gray-800 evening:bg-[#E9F0E6] relative overflow-hidden group">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-100 dark:to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="relative z-10">
         <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100 evening:text-evening-primary group-hover:text-gray-800 dark:group-hover:text-gray-200 evening:group-hover:text-evening-secondary">

@@ -31,7 +31,7 @@ export default function About() {
           
           <div className="w-full md:w-3/5">
 
-            <div className="bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8] p-4 md:p-5 rounded-lg shadow-md mb-6 md:mb-8 border border-gray-200 dark:border-gray-700 evening:border-gray-300">
+            <div className="bg-[#E9F0E6] dark:bg-gray-800 evening:bg-[#D1D9CF] p-4 md:p-5 rounded-lg shadow-md mb-6 md:mb-8 border border-gray-200 dark:border-gray-700 evening:border-gray-300">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white evening:text-evening-primary mb-3 flex items-center">
                 <Github className="w-5 h-5 mr-2" /> GitHub Portfolio Highlights
               </h3>

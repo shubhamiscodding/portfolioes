@@ -39,7 +39,7 @@ const gridItems = [
     label: "Web Designer",
     description: "Web Designer",
     type: "stat",
-    bgColor: "bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]",
+    bgColor: "bg-[#E9F0E6] dark:bg-gray-800 evening:bg-[#D1D9CF]",
     iconColor: "text-gray-800 dark:text-gray-300 evening:text-evening-primary",
     borderColor: "border-[#030712] dark:border-gray-700 evening:border-evening-primary"
   },
@@ -48,7 +48,7 @@ const gridItems = [
     label: "UI/UX Designer", 
     description: "UI/UX Designer",
     type: "stat",
-    bgColor: "bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]",
+    bgColor: "bg-[#E9F0E6] dark:bg-gray-800 evening:bg-[#D1D9CF]",
     iconColor: "text-gray-800 dark:text-gray-300 evening:text-evening-primary",
     borderColor: "border-[#030712] dark:border-gray-700 evening:border-evening-primary"
   },
@@ -57,7 +57,7 @@ const gridItems = [
     label: "Backend Developer",
     description: "Backend Developer", 
     type: "stat",
-    bgColor: "bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]",
+    bgColor: "bg-[#E9F0E6] dark:bg-gray-800 evening:bg-[#D1D9CF]",
     iconColor: "text-gray-800 dark:text-gray-300 evening:text-evening-primary",
     borderColor: "border-[#030712] dark:border-gray-700 evening:border-evening-primary"
   }
@@ -77,13 +77,13 @@ export default function Services() {
         };
       case 'evening':
         return {
-          background: 'bg-[#E5E0D8]',
+          background: 'bg-[#D1D9CF]',
           border: 'border-evening-primary',
           hoverBg: 'hover:bg-[#B0BEC5]'
         };
       default: // light theme
         return {
-          background: 'bg-[#E5E0D8]',
+          background: 'bg-[#E9F0E6]',
           border: 'border-[#030712]',
           hoverBg: 'hover:bg-[#C9C7BA]'
         };
@@ -108,12 +108,12 @@ export default function Services() {
 
         {/* Connected Horizontal Grid Layout */}
         <div className="max-w-6xl mx-auto">
-          <div className="border-2 border-gray-800 dark:border-gray-300 evening:border-evening-primary flex">
+          <div className="border-2 border-gray-800 dark:border-gray-300 evening:border-evening-primary flex flex-col md:flex-row">
             {gridItems.map((item, index) => (
               <motion.div
                 key={index}
-                className={`${boxStyles.background} ${boxStyles.hoverBg} p-8 text-center relative flex-1 transition-colors duration-200 ${
-                  index !== gridItems.length - 1 ? `border-r-2 ${boxStyles.border}` : ''
+                className={`${boxStyles.background} ${boxStyles.hoverBg} p-6 md:p-8 text-center relative flex-1 transition-colors duration-200 ${
+                  index !== gridItems.length - 1 ? `border-b-2 md:border-b-0 md:border-r-2 ${boxStyles.border}` : ''
                 }`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -125,15 +125,17 @@ export default function Services() {
                 <div className="flex flex-col items-center justify-center h-full">
                   {/* Icon */}
                   <motion.div 
-                    className={`${item.iconColor} mb-6`}
+                    className={`${item.iconColor} mb-4 md:mb-6`}
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    {item.icon}
+                    <div className="w-8 h-8 md:w-12 md:h-12">
+                      {item.icon}
+                    </div>
                   </motion.div>
                   
                   {/* Label */}
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary whitespace-nowrap">
+                  <h3 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary whitespace-normal md:whitespace-nowrap">
                     {item.label.toUpperCase()}
                   </h3>
                 </div>

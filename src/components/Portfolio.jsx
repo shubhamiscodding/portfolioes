@@ -20,7 +20,7 @@ const projects = [
     technologies: ["MongoDB", "Express", "React", "Node.js", "Tailwindcss", "JavaScript"],
     demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
     size: "large", // large card
-            bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]", // changed to #E5E0D8
+            bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]", // updated colors
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = [
     description: "A pixel-perfect clone of the Progcap platform, showcasing advanced React implementation and responsive design techniques.",
     technologies: ["React", "CSS", "JavaScript"],
     size: "small",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const projects = [
     description: "A faithful recreation of the Apollo healthcare platform interface, demonstrating attention to detail in UI/UX design.",
     technologies: ["HTML", "CSS"],
     size: "small",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const projects = [
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
     technologies: ["React", "API Integration"],
     size: "medium",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ const projects = [
     description: "A sleek Figma prototype for a financial management tool with a simple and intuitive UI.",
     technologies: ["Figma", "Simple UI"],
     size: "small",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 6,
@@ -78,7 +78,7 @@ const projects = [
     description: "A Figma design for a fragrance brand landing page, featuring prototyping and a clean UI.",
     technologies: ["Figma", "Simple UI", "Prototyping"],
     size: "medium",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 7,
@@ -89,7 +89,7 @@ const projects = [
     description: "A Figma prototype for a cricket news platform with interactive elements.",
     technologies: ["Figma", "Prototyping"],
     size: "large",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 8,
@@ -100,7 +100,7 @@ const projects = [
     description: "A Figma recreation of Instagram's interface with prototyping features.",
     technologies: ["Figma", "Prototyping"],
     size: "small",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
   },
   {
     id: 9,
@@ -111,7 +111,7 @@ const projects = [
     description: "A unique one-page social media design created in Figma with a creative layout.",
     technologies: ["Figma"],
     size: "medium",
-    bgColor: "bg-[#E5E0D8] dark:bg-[#1F2937] evening:bg-[#E5E0D8]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
 ]
 
