@@ -12,7 +12,7 @@ export default function Footer() {
       }}
     >
       {/* Add overlay for better readability */}
-      <div className="absolute inset-0 bg-white/95 dark:bg-gray-900/95 evening:bg-evening-background/95"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95 evening:from-white/90 evening:to-gray-50/90"></div>
       
       <div className="text-center relative z-10">
         <a href="#home" className="text-2xl font-bold text-gray-900 dark:text-white evening:text-evening-primary mb-8 inline-block">
