@@ -21,7 +21,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const [isDragging, setIsDragging] = useState(false)
-  const [position, setPosition] = useState({ x: 20, y: 20 })
+  const [position, setPosition] = useState({ x: 70, y: 75 })
   const [mounted, setMounted] = useState(false)
   const [showFloatingNav, setShowFloatingNav] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -49,9 +49,9 @@ export default function Header() {
       
       setIsMobile(isMobileDevice);
       
-      // Only set default behavior on initial load, don't force it
+      // Set floating nav as default for all devices
       if (!mounted) {
-        setShowFloatingNav(!isMobileDevice);
+        setShowFloatingNav(true);
       }
     };
 

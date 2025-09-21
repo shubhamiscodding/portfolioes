@@ -2,6 +2,7 @@ import { LayoutGrid, Code, Server } from "lucide-react"
 import { useTheme } from "./ThemeProvider"
 import { motion, useInView } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
+import FadeInSection from "./FadeInSection"
 
 const AnimatedCounter = ({ end, duration = 2, suffix = "" }) => {
   const [count, setCount] = useState(0)
@@ -95,54 +96,52 @@ export default function Services() {
   return (
     <section id="services" className="py-16 md:py-24 dark:bg-gray-900 evening:bg-evening-background">
       <div className="">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Services</h2>
-          <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">What I offer</p>
-        </motion.div>
+        <FadeInSection duration={0.3}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Services</h2>
+            <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">What I offer</p>
+          </div>
+        </FadeInSection>
 
         {/* Connected Horizontal Grid Layout */}
-        <div className="max-w-6xl mx-auto">
-          <div className="border-2 border-gray-800 dark:border-gray-300 evening:border-evening-primary flex flex-col md:flex-row">
-            {gridItems.map((item, index) => (
-              <motion.div
-                key={index}
-                className={`${boxStyles.background} ${boxStyles.hoverBg} p-6 md:p-8 text-center relative flex-1 transition-colors duration-200 ${
-                  index !== gridItems.length - 1 ? `border-b-2 md:border-b-0 md:border-r-2 ${boxStyles.border}` : ''
-                }`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
+        <FadeInSection duration={0.4}>
+          <div className="max-w-6xl mx-auto">
+            <div className="border-2 border-gray-800 dark:border-gray-300 evening:border-evening-primary flex flex-col md:flex-row">
+              {gridItems.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className={`${boxStyles.background} ${boxStyles.hoverBg} p-6 md:p-8 text-center relative flex-1 transition-colors duration-200 ${
+                    index !== gridItems.length - 1 ? `border-b-2 md:border-b-0 md:border-r-2 ${boxStyles.border}` : ''
+                  }`}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
 
-                {/* Content */}
-                <div className="flex flex-col items-center justify-center h-full">
-                  {/* Icon */}
-                  <motion.div 
-                    className={`${item.iconColor} mb-4 md:mb-6`}
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="w-8 h-8 md:w-12 md:h-12">
-                      {item.icon}
-                    </div>
-                  </motion.div>
-                  
-                  {/* Label */}
-                  <h3 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary whitespace-normal md:whitespace-nowrap">
-                    {item.label.toUpperCase()}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
+                  {/* Content */}
+                  <div className="flex flex-col items-center justify-center h-full">
+                    {/* Icon */}
+                    <motion.div 
+                      className={`${item.iconColor} mb-4 md:mb-6`}
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="w-8 h-8 md:w-12 md:h-12">
+                        {item.icon}
+                      </div>
+                    </motion.div>
+                    
+                    {/* Label */}
+                    <h3 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary whitespace-normal md:whitespace-nowrap">
+                      {item.label.toUpperCase()}
+                    </h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        </FadeInSection>
       </div>
     </section>
   )

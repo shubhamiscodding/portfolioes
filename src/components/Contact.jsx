@@ -5,6 +5,7 @@ import { Input } from "./ui/Input"
 import { Textarea } from "./ui/Textarea"
 import emailjs from '@emailjs/browser'
 import { useTheme } from "./ThemeProvider"
+import FadeInSection from "./FadeInSection"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -54,56 +55,59 @@ export default function Contact() {
     <section id="contact" className="py-16 md:py-24 dark:bg-gray-900 evening:bg-evening-background w-screen -ml-[13%] -mr-[10%]">
       <div className="px-[10%]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="border-2 border-[#030712] dark:border-gray-700 evening:border-evening-primary rounded-lg p-8 bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]">
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-8">Talk to me</h3>
-            <div className="space-y-6">
-              <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <Mail className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
-                <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">Email</h4>
-                <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubham.modi.cg@gmail.com</p>
-                <a
-                  href="mailto:shubham.modi.cg@gmail.com"
-                  className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
-                >
-                  <span className="mr-2">Write me</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
+          <FadeInSection duration={0.3}>
+            <div className="border-2 border-[#030712] dark:border-gray-700 evening:border-evening-primary rounded-lg p-8 bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]">
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-8">Talk to me</h3>
+              <div className="space-y-6">
+                <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
+                  <Mail className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
+                  <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">Email</h4>
+                  <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubham.modi.cg@gmail.com</p>
+                  <a
+                    href="mailto:shubham.modi.cg@gmail.com"
+                    className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
+                  >
+                    <span className="mr-2">Write me</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
 
-              <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <MessageSquare className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
-                <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">GitHub</h4>
-                <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubhamiscodding</p>
-                <a
-                  href="https://github.com/shubhamiscodding"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
-                >
-                  <span className="mr-2">Visit profile</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
+                <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
+                  <MessageSquare className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
+                  <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">GitHub</h4>
+                  <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubhamiscodding</p>
+                  <a
+                    href="https://github.com/shubhamiscodding"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
+                  >
+                    <span className="mr-2">Visit profile</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
 
-              <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
-                <MessageSquare className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
-                <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">LinkedIn</h4>
-                <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubham-modi-cg</p>
-                <a
-                  href="https://www.linkedin.com/in/shubham-modi-cg/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
-                >
-                  <span className="mr-2">Connect</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                <div className="bg-white dark:bg-[#030712] evening:bg-white p-6 rounded-lg shadow-sm flex flex-col items-center text-center">
+                  <MessageSquare className="w-8 h-8 text-gray-800 dark:text-gray-200 evening:text-evening-primary mb-4" />
+                  <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-1">LinkedIn</h4>
+                  <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground mb-4">shubham-modi-cg</p>
+                  <a
+                    href="https://www.linkedin.com/in/shubham-modi-cg/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-gray-600 dark:text-gray-400 evening:text-evening-foreground hover:text-gray-900 dark:hover:text-gray-200 evening:hover:text-evening-primary group"
+                  >
+                    <span className="mr-2">Connect</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          </FadeInSection>
 
-          <div className="border-2 border-[#030712] dark:border-gray-700 evening:border-evening-primary rounded-lg p-8 bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]">
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-8">Write me your project</h3>
+          <FadeInSection duration={0.4}>
+            <div className="border-2 border-[#030712] dark:border-gray-700 evening:border-evening-primary rounded-lg p-8 bg-[#E5E0D8] dark:bg-gray-800 evening:bg-[#E5E0D8]">
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-8">Write me your project</h3>
             
             {success && (
               <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-lg">
@@ -164,8 +168,9 @@ export default function Contact() {
               >
                 {loading ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
               </Button>
-            </form>
-          </div>
+              </form>
+            </div>
+          </FadeInSection>
         </div>
       </div>
     </section>

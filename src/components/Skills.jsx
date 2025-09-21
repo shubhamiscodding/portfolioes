@@ -1,6 +1,7 @@
 "use client"
 import { Code, Database, Wrench, FileCode, Palette, Globe, Server, Terminal, GitBranch, Cpu, Layout, Braces, FigmaIcon } from "lucide-react"
 import { motion } from "framer-motion"
+import FadeInSection from "./FadeInSection"
 
 // Skill component
 const SkillItem = ({ name, icon, delay = 0 }) => {
@@ -89,25 +90,33 @@ export default function Skills() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-gray-50/90 dark:from-gray-900/95 dark:to-gray-800/95 evening:from-white/90 evening:to-gray-50/90"></div>
       
       <div className="relative z-10 px-[10%]">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Skills</h2>
-          <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">What I Bring to the Table</p>
-        </div>
+        <FadeInSection duration={0.3}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 evening:text-evening-primary mb-2">Skills</h2>
+            <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground">What I Bring to the Table</p>
+          </div>
+        </FadeInSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Large box on the left */}
-          <div className="h-full">
-            <SkillBox title="Frontend" skills={frontendSkills} />
-          </div>
+          <FadeInSection duration={0.4}>
+            <div className="h-full">
+              <SkillBox title="Frontend" skills={frontendSkills} />
+            </div>
+          </FadeInSection>
           
           {/* Two stacked boxes on the right */}
           <div className="flex flex-col gap-8">
-            <div>
-              <SkillBox title="Backend" skills={backendSkills} />
-            </div>
-            <div>
-              <SkillBox title="Tools" skills={toolsSkills} />
-            </div>
+            <FadeInSection duration={0.5}>
+              <div>
+                <SkillBox title="Backend" skills={backendSkills} />
+              </div>
+            </FadeInSection>
+            <FadeInSection duration={0.6}>
+              <div>
+                <SkillBox title="Tools" skills={toolsSkills} />
+              </div>
+            </FadeInSection>
           </div>
         </div>
       </div>
