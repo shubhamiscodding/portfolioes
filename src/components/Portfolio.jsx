@@ -20,7 +20,7 @@ const projects = [
     technologies: ["MongoDB", "Express", "React", "Node.js", "Tailwindcss", "JavaScript"],
     demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
     size: "large", // large card
-            bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]", // updated colors
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]", // updated colors
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = [
     description: "A pixel-perfect clone of the Progcap platform, showcasing advanced React implementation and responsive design techniques.",
     technologies: ["React", "CSS", "JavaScript"],
     size: "small",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const projects = [
     description: "A faithful recreation of the Apollo healthcare platform interface, demonstrating attention to detail in UI/UX design.",
     technologies: ["HTML", "CSS"],
     size: "small",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const projects = [
     description: "A feature-rich YouTube clone that implements core functionalities using React and external APIs.",
     technologies: ["React", "API Integration"],
     size: "medium",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ const projects = [
     description: "A sleek Figma prototype for a financial management tool with a simple and intuitive UI.",
     technologies: ["Figma", "Simple UI"],
     size: "small",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 6,
@@ -78,7 +78,7 @@ const projects = [
     description: "A Figma design for a fragrance brand landing page, featuring prototyping and a clean UI.",
     technologies: ["Figma", "Simple UI", "Prototyping"],
     size: "medium",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 7,
@@ -100,7 +100,7 @@ const projects = [
     description: "A Figma recreation of Instagram's interface with prototyping features.",
     technologies: ["Figma", "Prototyping"],
     size: "small",
-    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937]",
+    bgColor: "bg-[#E9F0E6] dark:bg-[#1F2937] evening:bg-[#D1D9CF]",
   },
   {
     id: 9,
@@ -118,7 +118,7 @@ const projects = [
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All")
   const { theme } = useTheme()
-  
+
   const filteredProjects =
     activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory)
 
@@ -126,7 +126,7 @@ export default function Portfolio() {
   const getSizeClasses = (size, index) => {
     // Base size classes
     let sizeClass = '';
-    
+
     switch (size) {
       case 'large':
         sizeClass = 'lg:col-span-2 lg:row-span-2';
@@ -138,12 +138,12 @@ export default function Portfolio() {
       default:
         sizeClass = 'lg:col-span-1 lg:row-span-1';
     }
-    
+
     // Add randomized asymmetric layout for certain indexes
     if (index % 5 === 0) {
-      return `${sizeClass} md:col-span-2`; 
+      return `${sizeClass} md:col-span-2`;
     } else if (index % 7 === 0) {
-      return `${sizeClass} md:col-start-2`; 
+      return `${sizeClass} md:col-start-2`;
     } else {
       return sizeClass;
     }
@@ -193,8 +193,8 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-3 md:gap-4 lg:gap-6">
           {filteredProjects.map((project, index) => (
-            <div 
-              key={project.id} 
+            <div
+              key={project.id}
               className={cn(
                 "relative rounded-lg overflow-hidden transition-all duration-300",
                 "before:absolute before:inset-0 before:border-2 before:border-[#030712] dark:before:border-gray-700 evening:before:border-evening-primary before:rounded-lg",
@@ -217,9 +217,9 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-gray-800 dark:bg-gray-200 evening:bg-evening-primary bg-opacity-30 opacity-0 group-hover:opacity-40 transition-opacity duration-300 flex items-center justify-center z-10">
                   <div className="space-x-4 relative z-20">
                     {project.github && (
-                      <a 
-                        href={project.github} 
-                        target="_blank" 
+                      <a
+                        href={project.github}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 evening:bg-white rounded-full text-gray-900 dark:text-white evening:text-evening-primary hover:bg-gray-100 dark:hover:bg-gray-300 evening:hover:bg-evening-foreground transition-colors duration-300 cursor-pointer"
                         onClick={(e) => e.stopPropagation()}
@@ -227,9 +227,9 @@ export default function Portfolio() {
                         <Github className="w-5 h-5" />
                       </a>
                     )}
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
+                    <a
+                      href={project.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center p-2 bg-white dark:bg-gray-200 evening:bg-white rounded-full text-gray-900 dark:text-white evening:text-evening-primary hover:bg-gray-100 dark:hover:bg-gray-300 evening:hover:bg-evening-foreground transition-colors duration-300 cursor-pointer"
                       onClick={(e) => e.stopPropagation()}
@@ -243,9 +243,9 @@ export default function Portfolio() {
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white evening:text-evening-primary">{project.title}</h3>
                 </div>
-                
+
                 <p className="text-gray-600 dark:text-gray-400 evening:text-evening-foreground text-sm mb-3 line-clamp-2">{project.description}</p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-auto">
                   {project.technologies && project.technologies.slice(0, 3).map((tech, index) => (
                     <span key={index} className="text-xs bg-gray-100 dark:bg-gray-800 evening:bg-white text-gray-800 dark:text-gray-300 evening:text-evening-primary px-2 py-1 rounded-full">
@@ -253,10 +253,10 @@ export default function Portfolio() {
                     </span>
                   ))}
                 </div>
-                
+
                 {project.demoVideo && (
                   <div className="mt-3">
-                    <VideoButton 
+                    <VideoButton
                       videoUrl={project.demoVideo}
                       videoTitle={`${project.title} Demo`}
                       text="Browse product"
