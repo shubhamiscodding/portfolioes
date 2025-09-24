@@ -36,10 +36,10 @@ export default function Contact() {
     // Using EmailJS to send the email directly
     // You need to sign up at emailjs.com and get your service ID, template ID and user ID
     emailjs.sendForm(
-      'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-      'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+      'service_viou3nq', // Replace with your EmailJS service ID
+      'template_syis90r', // Replace with your EmailJS template ID
       formRef.current,
-      'YOUR_USER_ID' // Replace with your EmailJS user ID
+      'XBKz6GzHVZLdTS5rd' // Replace with your EmailJS user ID
     )
       .then((result) => {
         setLoading(false)
